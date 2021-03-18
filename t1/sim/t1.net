@@ -1,0 +1,30 @@
+* Title: Simple circuit
+.options savecurrents
+va b 0 dc 5.00662232904
+
+id f e dc 1.01708754235m
+
+r1 b c 1.03301019518k
+r2 d c 2.0748608676k
+r3 c h 3.05514376545k
+r4 h 0 4.15047871791k
+r5 h e 3.02449899207k
+r6 0 g 2.08776908673k
+vr6 g i dc 0
+r7 i f 1.03338176153k
+
+g1 e d c h 7.32769926486m
+
+h1 h f vr6 8.37701206687m
+
+.control
+op
+echo  "op_TAB"
+print all
+echo  "op_END"
+
+quit
+.endc
+
+.end
+
