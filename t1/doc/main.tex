@@ -31,9 +31,68 @@
 \section{Introduction}
 Hello this is our circuit.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.6\textwidth]{Circuit_diagram.pdf}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=.6\textwidth]{Circuit_diagram.pdf}
+%\end{figure}
+
+\section{Theoritical Analysis}
+
+\begin{center}
+    \begin{minipage}{.3\textwidth}
+        \flushright
+        \begin{tabular}{|c|}
+            \hline
+            $I_a$ \\
+            \hline
+            $I_b$ \\
+            \hline
+            $I_c$ \\
+            \hline
+            $I_d$ \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}{.3\textwidth}
+        \flushleft
+        \input{currents.tex}
+    \end{minipage}
+\end{center}
+
+\begin{center}
+    \begin{minipage}{.3\textwidth}
+        \flushright
+        \begin{tabular}{|c|}
+            \hline
+            $V_b$ \\
+            \hline
+            $V_c$ \\
+            \hline
+            $V_d$ \\
+            \hline
+            $V_e$ \\
+            \hline
+            $V_f$ \\
+            \hline
+            $V_g$ \\
+            \hline
+            $V_h$ \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}{.3\textwidth}
+        \flushleft
+        \input{voltages.tex}
+    \end{minipage}
+\end{center}
+
+\section{Simulation}
+
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline
+		\input{op_tab.tex}
+	\end{tabular}
+\end{center}
 
 \end{document}

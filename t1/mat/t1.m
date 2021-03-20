@@ -1,6 +1,7 @@
 close all
 clear all
 format long
+pkg load miscellaneous
 %%Define the circuit constants
 
 %%Sources
@@ -34,9 +35,33 @@ Bm = [Va; 0; 0; Id]
 
 I = M\Bm
 
+currents = textable (I, "rlines", "clines", "align", "c");
+c_rep = strfind(currents, "&");
+for i = 1:length(c_rep)
+	currents(c_rep(1)) = "";
+	c_rep = strfind(currents, "&");
+endfor
+
+filename = "currents.tex";
+fid = fopen(filename, "w");
+fputs(filename, currents);
+fclose(fid);
+
 %%Nodal Analysis
 printf("\n\nNodal Analysis\n\n");
 N = [G1, -(G1+G2+G3), G2, 0, 0, 0, G3; 0, Kb+G2, -G2, 0, 0, 0, -Kb; 0, Kb, 0, G5, 0, 0, -(Kb+G5); 0, 0, 0, 0, G7, -(G6+G7), 0; 1, 0, 0, 0, 0, 0, 0; 0, 0, 0, 0, -1, Kc*G6, 1; R4*G1, -R4*G1, 0, 0, 0, -R4*G6, -1]
 Bn = [0; 0; Id; 0; Va; 0; 0]
 
 V = N\Bn
+
+voltages = textable (V, "rlines", "clines", "align", "c");
+v_rep = strfind(voltages, "&");
+for i = 1:length(v_rep)
+	voltages(v_rep(1)) = "";
+	v_rep = strfind(voltages, "&");
+endfor
+
+filename = "voltages.tex";
+fid = fopen(filename, "w");
+fputs(filename, voltages);
+fclose(fid);
