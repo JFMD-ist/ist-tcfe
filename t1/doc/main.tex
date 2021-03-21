@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[lmargin=2cm, tmargin=3cm, rmargin=2cm, bmargin=2cm, headheight=5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{enumerate}
@@ -7,19 +8,31 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}{
+\rhead{\includegraphics[width=30mm]{../other/logo_ist.png}}
+\lhead{TCFE lab report}
+}
 
 
 \begin{document}
-
+\thispagestyle{empty}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{../../figlib/IST_A_CMYK_POS.pdf}
+	\includegraphics[width=.6\textwidth]{../../figlib/IST_A_CMYK_POS.pdf}
 \end{figure}
 
 \begin{center}
 	\huge{Circuit Theory and Electronic Fundamentals}
 	
+	\huge{Lab Report - T1}
+	
+	\vspace{30pt}
+	
 	\large{Professor: José Sousa}
+	
+	\vspace{20pt}
 	
 	\large{95801 - João Domingos}
 	
@@ -28,71 +41,85 @@
 	\large{97087 - Miguel Fernandes}
 \end{center}
 
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
 \section{Introduction}
-Hello this is our circuit.
+\input{intro.tex}
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=.6\textwidth]{Circuit_diagram.pdf}
-%\end{figure}
+\section{Theoretical Analysis}
 
-\section{Theoritical Analysis}
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $I_A$ \\
+		    \hline
+		    $I_B$ \\
+		    \hline
+		    $I_C$ \\
+		    \hline
+		    $I_D$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-7pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{currents.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Theoretical values for the currents in the different meshes (in Amperes)}
+	\label{theory_currents}
+\end{figure}
 
-\begin{center}
-    \begin{minipage}{.3\textwidth}
-        \flushright
-        \begin{tabular}{|c|}
-            \hline
-            $I_a$ \\
-            \hline
-            $I_b$ \\
-            \hline
-            $I_c$ \\
-            \hline
-            $I_d$ \\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \begin{minipage}{.3\textwidth}
-        \flushleft
-        \input{currents.tex}
-    \end{minipage}
-\end{center}
+\vspace{30pt}
 
-\begin{center}
-    \begin{minipage}{.3\textwidth}
-        \flushright
-        \begin{tabular}{|c|}
-            \hline
-            $V_b$ \\
-            \hline
-            $V_c$ \\
-            \hline
-            $V_d$ \\
-            \hline
-            $V_e$ \\
-            \hline
-            $V_f$ \\
-            \hline
-            $V_g$ \\
-            \hline
-            $V_h$ \\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \begin{minipage}{.3\textwidth}
-        \flushleft
-        \input{voltages.tex}
-    \end{minipage}
-\end{center}
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_A$ \\
+		    \hline
+		    $V_B$ \\
+		    \hline
+		    $V_C$ \\
+		    \hline
+		    $V_D$ \\
+		    \hline
+		    $V_E$ \\
+		    \hline
+		    $V_F$ \\
+		    \hline
+		    $V_G$ \\
+		    \hline
+		    $V_H$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-7pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Theoretical values for the voltages in the different nodes (in Volts)}
+	\label{theory_voltages}
+\end{figure}
 
+\pagebreak
 \section{Simulation}
+\input{simp.tex}
 
-\begin{center}
-	\begin{tabular}{|c|c|}
-		\hline
-		\input{op_tab.tex}
-	\end{tabular}
-\end{center}
+\pagebreak
+\section{Theory VS Simulation}
+\input{comp.tex}
 
 \end{document}
