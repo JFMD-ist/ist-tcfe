@@ -1,5 +1,5 @@
 \label{simulation}
-Using the software Ngspice, we recreated the circuit (Figure ~\ref{fig:circuit}) with the specifications as seen in Figure ~\ref{fig:circuit_spec} and after performing an \textbf{operational point analysis} (.op in the ngspice script) obtained the folowing results:
+\hspace{12pt} Using the software Ngspice, we recreated the circuit (Figure ~\ref{fig:circuit}) with the specifications as seen in Figure ~\ref{fig:circuit_spec} and after performing an \textbf{operational point analysis} (.op in the ngspice script) obtained the folowing results:
 
 \begin{figure}[h]
 	\begin{center}
@@ -13,5 +13,7 @@ Using the software Ngspice, we recreated the circuit (Figure ~\ref{fig:circuit})
 	\caption{Current and voltage values obtained from the ngspice simulation}
 	\label{sim_results}
 \end{figure}
+
+Where the @ symbol indicates a current flowing through a component (ie @r1 means the current flowing through resistor 1 with sign according to the defined polarity of R1 and the assumed current direction) and a single lowercase letter indicates the voltage in that node. It's important to note that the voltage in node A is not present in the simulation as it was defined to be the GND node ($V_A = 0V$)and thus will not be printed by the script.
 
 

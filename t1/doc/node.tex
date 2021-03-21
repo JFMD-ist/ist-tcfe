@@ -1,0 +1,115 @@
+\hspace{12pt} This circuit is composed of 8 nodes, which have been named in the image in the beginning of the document (Figure ~\ref{fig:circuit_spec}). The Kirchhoff's Current Law says that the sum of the current that enters a node, with the current that leaves a node, must be zero. However this law cannot be applied in nodes connected to voltage sources, so we can only use this law in 4 of the 8 nodes.
+
+We will now analyze the 4 nodes using Kirchhoff's Current Law.
+
+
+\vspace{10pt}
+Node C:
+\begin{gather}
+    I_1+I_2-I_3=0 \iff \nonumber \\ 
+    \iff G_1(V_B-V_C)+G_2(V_D-V_C)-G_3(V_C-V_H)=0 \iff \\
+    \iff G_1V_B-(G_1+G_2+G_3)V_C+G_2V_D+G_3V_H \nonumber
+\end{gather}
+
+Node D:
+\begin{gather}
+    -I_2+I_b=0 \iff \nonumber \\
+    \iff -G_2(V_D-V_C)+K_b(V_C-V_H) \iff \\
+    \iff (K_b+G_2)V_C-G_2V_D-K_bV_H=0 \nonumber
+\end{gather}
+
+Node E:
+\begin{gather}
+    -I_b-I_5+I_d=0 \iff \nonumber \\
+    \iff -K_b(V_C-V_H)-G_5(V_E-V_H)+I_d=0 \iff \\
+    \iff K_bV_C+G_5V_E-(K_b+G_5)V_H=I_d \nonumber
+\end{gather}
+
+Node G:
+\begin{gather}
+    I_c-I_7=0 \iff \nonumber \\
+    \iff G_6(0-V_G)-G_7(V_G-V_F)=0 \iff \\
+    \iff -(G_6+G_7)V_G+G_7V_F=0 \nonumber
+\end{gather}
+\vspace{5pt}
+
+Assuming node A has 0 potential, we can conclude by observation:
+\begin{equation}
+    V_B=V_a
+\end{equation}
+\vspace{5pt}
+
+The voltage controlled voltage source also gives:
+\begin{gather}
+    V_c=K_cI_c \iff \nonumber \\
+    \iff V_H-V_F=K_cG_6(0-V_G) \iff \\
+    \iff -V_F+K_cG_6V_G+V_H=0 \nonumber
+\end{gather}
+\vspace{5pt}
+
+We get the last equation using the Ohm's Law in resistor 4:
+\begin{gather}
+    V_H-0=R_4(I_A+I_C) \iff \nonumber \\
+    \iff V_H=R_4(G1(V_B-V_C)+G_6(0-V_G)) \iff \\
+    \iff R_4G_1V_B-R_4G_1V_C-R_4G_6V_G-V_H=0 \nonumber
+\end{gather}
+
+Using the 7 equations above, we have the following linear equations system:
+\vspace{10pt}
+
+\fontsize{8}{12}\selectfont
+$\begin{bmatrix}
+    G1 & -(G1+G2+G3) & G2 & 0 & 0 & 0 & G3 \\
+    0 & Kb+G2 & -G2 & 0 & 0 & 0 & -Kb \\
+    0 & Kb & 0 & G5 & 0 & 0 & -(Kb+G5) \\
+    0 & 0 & 0 & 0 & G7 & -(G6+G7) & 0 \\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & -1 & KcG6 & 1 \\
+    R4G1 & -R4G1 & 0 & 0 & 0 & -R4G6 & -1
+\end{bmatrix}$ $\cdot$
+$\begin{bmatrix}
+     V_B \\V_C \\V_D \\V_E \\V_F \\V_G \\V_H
+\end{bmatrix}$ =
+$\begin{bmatrix}
+    0 \\0 \\I_d \\0 \\V_a \\0 \\0
+\end{bmatrix}$
+
+\fontsize{11}{12}\selectfont
+\vspace{20pt}
+Using Octave to calculate the solution of the system we obtain:
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_A$ \\
+		    \hline
+		    $V_B$ \\
+		    \hline
+		    $V_C$ \\
+		    \hline
+		    $V_D$ \\
+		    \hline
+		    $V_E$ \\
+		    \hline
+		    $V_F$ \\
+		    \hline
+		    $V_G$ \\
+		    \hline
+		    $V_H$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Electric potential of the 8 nodes}
+	\label{theory_voltages}
+\end{figure}
+
+We can now use Ohm's Law to calculate the current flowing through each resistor which, consequently, allows us to reach the values for the currents in the 4 meshes.

@@ -1,0 +1,86 @@
+\hspace{12pt} The circuit is composed of 4 meshes. The mesh analysis method tells us that the current inside a mesh is constant, and therefore, we can use Kirchhoff's Voltage Law in each mesh to determine the current.
+
+The four elemental meshes in the circuits are: mesh A, composed by the nodes 0, B, C and H; mesh B, composed by the nodes C, D, E and H; mesh C, composed by the nodes 0, H, G and F; and mesh D, composed by the nodes H, E and F. We define $I_A$, $I_B$, $I_C$ and $I_D$ as the currents inside meshes A, B, C and D, respectively. 
+
+We will now analyze each individual mesh, using Kirchhoff's Voltage Law.
+\vspace{10pt}
+
+Mesh A:
+\begin{equation}
+    \begin{split}
+        R_1I_A+R_3(I_A+I_B)+R_4(I_A+I_C)=V_a \iff \\
+        \iff (R_1+R_3+R_4)I_A+R_3I_B+R_4I_C=V_a
+    \end{split}
+\end{equation}
+
+Mesh B:
+\begin{equation}
+    \begin{split}
+        I_B=K_bV_B \iff I_B=K_bR_3(I_A+I_B) \iff \\
+        \iff K_bR_3I_A+(K_BR_3-1)I_B=0
+    \end{split}
+\end{equation}
+
+Mesh C:
+\begin{equation}
+    \begin{split}
+        R_4(I_A+I_C)+R_6I_C+R_7I_C+V_C=0 \iff \\
+        \iff R_4I_A+(R_4+R_6+R_7+K_c)I_C=0
+    \end{split}
+\end{equation}
+
+Mesh D:
+\begin{equation}
+    I_D=I_d  \hspace{30pt} \textit{(by observation)}
+\end{equation}
+
+\vspace{20pt}
+With the 4 equations above, we can form the following linear equation system:
+\vspace{20pt}
+
+$\begin{bmatrix}
+    R_1 + R_3 + R_4 & R_3        & R_4             & 0 \\
+    K_bR_3          & K_bR_3 - 1 & 0               & 0 \\
+    R_4             & 0          & R_4+R_6+R_7-K_c & 0 \\
+    0               & 0          & 0               & 1 
+\end{bmatrix}$ $\cdot$
+$\begin{bmatrix}
+     I_A \\ I_B \\I_C \\I_D
+\end{bmatrix}$ =
+$\begin{bmatrix}
+    V_a \\ 0 \\ 0 \\ I_d
+\end{bmatrix}$
+
+\vspace{20pt}
+Using Octave to calculate the solution of the system we obtain:
+\vspace{20pt}
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $I_A$ \\
+		    \hline
+		    $I_B$ \\
+		    \hline
+		    $I_C$ \\
+		    \hline
+		    $I_D$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{currents.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Current values for the different meshes}
+	\label{theory_currents}
+\end{figure}
+
+ Knowing the currents in all the circuit meshes, we can use Ohm's Law in each resistor to calculate the voltage drop and thus extrapolate the values for all of the node voltages.
+ \newpage
+ 

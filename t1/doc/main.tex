@@ -9,6 +9,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
+\usepackage{amsmath}
 
 \pagestyle{fancy}{
 \rhead{\includegraphics[width=30mm]{../other/logo_ist.png}}
@@ -50,76 +51,28 @@
 \section{Introduction}
 \input{intro.tex}
 
+\pagebreak
 \section{Theoretical Analysis}
 
-\begin{figure}[h]
-	\begin{center}
-	    \begin{minipage}{.3\textwidth}
-		\flushright
-		\begin{tabular}{|c|}
-		    \hline
-		    $I_A$ \\
-		    \hline
-		    $I_B$ \\
-		    \hline
-		    $I_C$ \\
-		    \hline
-		    $I_D$ \\
-		    \hline
-		\end{tabular}
-	    \end{minipage}
-	    \hspace{-7pt}
-	    \begin{minipage}{.3\textwidth}
-		\flushleft
-		\input{currents.tex}
-	    \end{minipage}
-	\end{center}
-	\caption{Theoretical values for the currents in the different meshes (in Amperes)}
-	\label{theory_currents}
-\end{figure}
+\subsection{Mesh Analysis Method}
+\input{mesh.tex}
 
-\vspace{30pt}
+\subsection{Node Analysis Method}
+\input{node.tex}
 
-\begin{figure}[h]
-	\begin{center}
-	    \begin{minipage}{.3\textwidth}
-		\flushright
-		\begin{tabular}{|c|}
-		    \hline
-		    $V_A$ \\
-		    \hline
-		    $V_B$ \\
-		    \hline
-		    $V_C$ \\
-		    \hline
-		    $V_D$ \\
-		    \hline
-		    $V_E$ \\
-		    \hline
-		    $V_F$ \\
-		    \hline
-		    $V_G$ \\
-		    \hline
-		    $V_H$ \\
-		    \hline
-		\end{tabular}
-	    \end{minipage}
-	    \hspace{-7pt}
-	    \begin{minipage}{.3\textwidth}
-		\flushleft
-		\input{voltages.tex}
-	    \end{minipage}
-	\end{center}
-	\caption{Theoretical values for the voltages in the different nodes (in Volts)}
-	\label{theory_voltages}
-\end{figure}
+\subsection{Method Comparison}
+\hspace{12pt} We have now calculated both the currents and the voltages of the entire circuit however, having used 2 different methods does not guarantee us they agree with each other. In order to test said agreement we will analyze 2 resistors: $R_1$ and $R_5$. \vspace{12pt}
+
+Using Ohm's Law on $R_1$ (and following the current convention we set) we hope to see that $V_B - V_C = R_1I_A$ and by carrying out said calculation we get that $V_B - V_C = 1.93585V$ and $R_1I_A = 1.93585V$. \vspace{12pt}
+
+Let us now use the same method to analyze R5, since we are assuming the current in $R_5$ flows torward node $V_H$, we should see that $V_E - V_H = R_5(I_D - I_B)$. $V_E - V_H = 9.00903V$, $R_5(I_D - I_B) = 9.00907V$ this difference most likely comes from rounding errors within the Octave program but it correspondes to an immesurable error so we can say with certainty that both the nodal and mesh analysis methods agree with each other's results.
 
 \pagebreak
 \section{Simulation}
 \input{simp.tex}
 
 \pagebreak
-\section{Theory VS Simulation}
+\section{Conclusion}
 \input{comp.tex}
 
 \end{document}

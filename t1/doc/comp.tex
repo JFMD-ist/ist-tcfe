@@ -1,5 +1,5 @@
-\label{comparison}
-In order to compare the different results, we calculated the relative error between the theoretical and the simulated values $\varepsilon = \frac{Value_{simulation} - Value_{theory}}{Value_{theory}}$.
+\label{conclusion}
+\hspace{12pt} In order to compare the different results, we calculated the relative error between the theoretical (Figures \ref{theory_currents} and \ref{theory_voltages}) and the simulated values (Figure \ref{sim_results}) $\varepsilon = \frac{Value_{simulation} - Value_{theory}}{Value_{theory}}$.
 
 By computing the $\varepsilon$ of the various values, we obtain the following:
 
@@ -50,3 +50,5 @@ By computing the $\varepsilon$ of the various values, we obtain the following:
 	\caption{Relative error in the voltage results}
 	\label{voltage_error}
 \end{figure}
+
+The largest $\varepsilon$ for the currents is $\varepsilon_A = -5.336 \cdot 10^{-5}\%$ and $\varepsilon_E = 9.7695 \cdot 10^{-4}\%$, these differences could be due to number rounding by both the Octave and Ngspice softwares however as they are so much smaller than $1\%$, they are more than likely impossible to measure. Moreover, as is possible to see in the tables referenced above, both the voltage and current signs of the simulation results are as expected according to the mesh and nodal analysis methods. Thus we can conclude that the simulation results agree very well with the theory.
