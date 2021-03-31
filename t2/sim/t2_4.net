@@ -1,0 +1,65 @@
+* Title: Simple circuit
+.options savecurrents
+
+*Voltage source
+vs 1 0 sin(0 1 1k) ac 1
+
+*Capacitor voltage source
+c1 6 8 1.01708754235u
+
+*Resistor
+r1 1 2 1.03301019518k
+r2 3 2 2.0748608676k
+r3 2 5 3.05514376545k
+r4 5 0 4.15047871791k
+r5 5 6 3.02449899207k
+r6 0 7 2.08776908673k
+vr6 7 9 dc 0
+r7 9 8 1.03338176153k
+
+*VCCS
+g1 6 3 2 5 7.32769926486m
+
+*CCVS
+h1 5 8 vr6 8.37701206687k
+
+
+.ic v(6) = 5.559054e+00
+.ic v(8) = -2.84482e+00
+
+.control
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+set units=degrees
+
+op
+
+echo "********************************************"
+echo  "Transient analysis"
+echo "********************************************"
+tran 0.01m 20m
+hardcopy forced.ps v(1) v(6)
+echo forced_FIG
+
+echo "********************************************"
+echo  "Frequency analysis"
+echo "********************************************"
+ac dec 100 0.1 1MEG
+hardcopy acm.ps vdb(6)
+echo acm_FIG
+hardcopy acp.ps vp(6)
+echo acp_FIG
+hardcopy ac.ps v(1) v(6)
+echo ac_FIG
+
+quit
+.endc
+
+.end
+

@@ -5,14 +5,11 @@
 # ------------------------------------------------------------
 
 all:
-	make -C mat
-	make -C sim
+	sudo apt-get install -y octave-miscellaneous
 	make -C doc
-	cp doc/report.pdf .
+	cp doc/main.pdf .
 
 clean:
-	make -C mat clean
-	make -C sim clean
 	make -C doc clean
 
 .PHONY: all clean
