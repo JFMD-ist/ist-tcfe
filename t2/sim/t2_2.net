@@ -2,7 +2,7 @@
 .options savecurrents
 
 *Voltage source
-vs 1 0 dc 5.00662232904
+vs 1 0 dc 0
 
 *Capacitor voltage source
 vx 6 8 dc {5.559056e+00 + 2.84482e+00}

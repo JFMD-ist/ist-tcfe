@@ -5,7 +5,6 @@
 # ------------------------------------------------------------
 
 all:
-	sudo apt-get install -y octave-miscellaneous
 	make -C doc
 	cp doc/main.pdf .
 

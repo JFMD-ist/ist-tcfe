@@ -7,7 +7,7 @@ FILE=main
 LODFIGS = $(patsubst %.odg,%.pdf,$(wildcard *.odg))
 
 all: $(FILE).pdf
-	evince $< &
+#	evince $< &
 	
 ngspice: ngspice_1 ngspice_2 ngspice_3 ngspice_4
 
@@ -60,6 +60,6 @@ clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
 	@rm -rf *_tab.tex octave-workspace *.eps
-	@rm -rf *currents.tex *voltages.tex
+	@rm -rf *Ix.tex *Req.tex *voltages1.tex *voltages2.tex *v3_mag.tex *v3_ph.tex
 
 .PHONY: all clean ngspice octave
