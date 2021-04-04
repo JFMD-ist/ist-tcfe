@@ -4,31 +4,36 @@ format long
 pkg load miscellaneous
 %%Define the circuit constants
 
-%%Voltage Source
-Vs = 5.00662232904
+filename = "../doc/Data.txt";
+fid = fopen(filename, "r");
+data = dlmread(filename);
+fclose(fid);
 
-%%Capacitance
-C = 1.017087542350000e-06
-
-%%Resistances and conductances
-R1 = 1.03301019518e3
+%Resisances and conductances
+R1 = data(1).*10e2
 G1 = 1/R1
-R2 = 2.0748608676e3
+R2 = data(2).*10e2
 G2 = 1/R2
-R3 = 3.05514376545e3
-G3 = 1/R3 
-R4 = 4.15047871791e3
+R3 = data(3).*10e2
+G3 = 1/R3
+R4 = data(4).*10e2
 G4 = 1/R4
-R5 = 3.02449899207e3
+R5 = data(5).*10e2
 G5 = 1/R5
-R6 = 2.08776908673e3
+R6 = data(6).*10e2
 G6 = 1/R6
-R7 = 1.03338176153e3
-G7 = 1/R7 
+R7 = data(7).*10e2
+G7 = 1/R7
 
-%%Depdency constants
-Kb = 7.32769926486e-3
-Kd = 8.37701206687e3
+%Voltage source
+Vs = data(8)
+
+%Capacitance
+C = data(9).*10e-7
+
+%Dependency constants
+Kb = data(10).*10e-4
+Kd = data(11).*10e2
 
 %%-------------------------------------------------------------------------
 %%Question 1 Nodal Analysis
@@ -58,6 +63,10 @@ fclose(fid);
 %%-------------------------------------------------------------------------
 
 Vx = V1(6)-V1(8)
+filename = "vx.txt";
+fid = fopen(filename, "w");
+fputs(filename, num2str(Vx));
+fclose(fid);
 
 printf("\n\nNodal Analysis\n\n");
 N2 = [G1, -G1-G2-G3, G2, 0, G3, 0, 0, 0; 0, Kb+G2, -G2, 0, -Kb, 0, 0, 0; 0, 0, 0, 0, 0, 1,0, -1; 0, 0, 0, G6, 0, 0, -G6-G7, G7; 0, 0, 0, 1, 0, 0, 0, 0; 1, 0, 0, -1, 0, 0, 0, 0; 0, 0, 0, Kd*G6, -1, 0, -Kd*G6, 1; G1, -G1, 0, G4+G6, -G4, 0, -G6, 0]
@@ -132,5 +141,5 @@ hf = figure();
 plot(x, v6f(x, v6m, v6ph));
 hold on;
 plot(x, sin(6283.18530717958.*x));
-print(hf, "plot.pdf", "-dpdflatexstandalone");
+print(hf, "forced", "-depsc");
 

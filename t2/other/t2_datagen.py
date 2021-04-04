@@ -16,6 +16,9 @@ class Var:
     def printVar(self):
         print self.name, "=", self.val, "\n",
         
+    def writeTXT(self, file): #added by student
+        file.write(str(self.val)+"\n")
+        
 class Prob:
     def __init__(self, number, weight):
         self.number = number
@@ -24,9 +27,14 @@ class Prob:
         
     def printProb(self):
         print "Values: ",
+        f = open("Data.txt", "w")#added by student
+        
         for i in range(len(self.varList)):
             self.varList[i].printVar()
+            self.varList[i].writeTXT(f)#added by student
+            
         print "\n\n"
+        f.close()  #added by student
             
     def addVar(self, var):
         self.varList.append(var)
@@ -64,6 +72,7 @@ class DataSet:
         for i in range(nprobs):
             self.probList[i].printProb()
 
+
 def main():
     #init test
     number = input("\n\nPlease enter the lowest student number in your group: \n")
@@ -74,6 +83,5 @@ def main():
     #print test
     dataset.printDataSet()
     
+    
 if __name__ == "__main__": main()
-
-

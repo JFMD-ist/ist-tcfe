@@ -1,27 +1,7 @@
 * Title: Simple circuit
 .options savecurrents
 
-*Voltage source
-vs 1 0 dc 0
-
-*Capacitor voltage source
-vx 6 8 dc {5.559056e+00 + 2.84482e+00}
-
-*Resistor
-r1 1 2 1.03301019518k
-r2 3 2 2.0748608676k
-r3 2 5 3.05514376545k
-r4 5 0 4.15047871791k
-r5 5 6 3.02449899207k
-r6 0 7 2.08776908673k
-vr6 7 9 dc 0
-r7 9 8 1.03338176153k
-
-*VCCS
-g1 6 3 2 5 7.32769926486m
-
-*CCVS
-h1 5 8 vr6 8.37701206687k
+.include ../doc/t2_2.cir
 
 .control
 op

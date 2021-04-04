@@ -1,0 +1,35 @@
+\label{simulation}
+\subsection{Operating Point $t < 0$}
+\hspace{12pt} Using Ngspice to perform an operating point analysis for $t < 0$, we obtain the following results for the voltages and the currents:
+\begin{figure}[h]
+	\begin{minipage}{.45\textwidth}
+		\begin{center}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{Name} & \textbf{Value (A or V)} \\
+				\hline
+				\input{op_1_tab.tex}
+			\end{tabular}
+		\end{center}
+		\caption{Current and voltage values obtained from the ngspice simulation}
+		\label{op1_results}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\begin{center}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{Name} & \textbf{Value (A or V)} \\
+				\hline
+				\input{op_2_tab.tex}
+			\end{tabular}
+		\end{center}
+		\caption{Current and voltage values obtained from the ngspice simulation}
+		\label{op2_results}
+	\end{minipage}
+\end{figure}
+\fontsize{11}{12}\selectfont
+
+
+\subsection{Operating Point $v_S(t) = 0$}
+\hspace{12pt} After setting $v_S = 0$ and replacing the capacitor with a voltage source $V_x = V_6 - V_8$ (with $V_6$ and $V_8$ obtained from the nodal analysis), we obtain the following results for the voltages and the currents: 
+
