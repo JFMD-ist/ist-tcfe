@@ -115,6 +115,8 @@ V3 = N3\B3
 V3_mag = abs(V3);
 v6m = abs(V3(6));
 v6ph = arg(V3(6));
+vxm = abs(V3(6)-V3(8));
+vxph = arg(V3(6)-V3(8));
 
 voltages3 = textable (V3_mag, "rlines", "clines", "align", "c");
 v3_rep = strfind(voltages3, "&");
@@ -136,10 +138,16 @@ function [y] = v6f(x, v6m, v6ph)
 	y = v6m.*sin(6283.18530717958.*x + v6ph)
 endfunction
 
+function [y] = vxf(x, vxm, vxph)
+	y = vxm.*sin(6283.18530717958.*x + vxph)
+endfunction
+
 x = 0:0.0001:0.02;
 hf = figure();
 plot(x, v6f(x, v6m, v6ph));
 hold on;
 plot(x, sin(6283.18530717958.*x));
+hold on;
+plot(x, vxf(x, vxm, vxph));
 print(hf, "forced", "-depsc");
 

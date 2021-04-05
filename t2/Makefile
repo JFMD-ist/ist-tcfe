@@ -6,7 +6,7 @@
 
 all:
 	make -C doc
-	cp doc/main.pdf .
+	cp doc/report.pdf .
 
 clean:
 	make -C doc clean

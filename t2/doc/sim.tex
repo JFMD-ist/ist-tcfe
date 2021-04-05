@@ -1,35 +1,89 @@
 \label{simulation}
-\subsection{Operating Point $t < 0$}
-\hspace{12pt} Using Ngspice to perform an operating point analysis for $t < 0$, we obtain the following results for the voltages and the currents:
+\subsection{Operating Point Analysis for $t < 0$ and $v_S$(t) = 0}
+\hspace{12pt} Using Ngspice to perform an operating point analysis for $t < 0$, we obtain Figure \ref{op1_results} and after setting $v_S = 0$ and replacing the capacitor with a voltage source $V_x = V_6 - V_8$ (with $V_6$ and $V_8$ obtained from the nodal analysis), we obtain the results for the voltages and the currents in Figure \ref{op2_results}:
 \begin{figure}[h]
-	\begin{minipage}{.45\textwidth}
-		\begin{center}
+	\hspace{30pt}
+	\begin{minipage}{.4\textwidth}
+		\centering
+			\scalebox{0.7}{
 			\begin{tabular}{|c|c|}
 				\hline
 				\textbf{Name} & \textbf{Value (A or V)} \\
 				\hline
 				\input{op_1_tab.tex}
-			\end{tabular}
-		\end{center}
-		\caption{Current and voltage values obtained from the ngspice simulation}
-		\label{op1_results}
+			\end{tabular}}
+			\caption{Currents and voltages obtained for $t < 0$}
+			\label{op1_results}
 	\end{minipage}
-	\begin{minipage}{.45\textwidth}
-		\begin{center}
+	\hspace{20pt}
+	\begin{minipage}{.4\textwidth}
+		\centering
+			\scalebox{0.7}{
 			\begin{tabular}{|c|c|}
 				\hline
 				\textbf{Name} & \textbf{Value (A or V)} \\
 				\hline
 				\input{op_2_tab.tex}
-			\end{tabular}
-		\end{center}
-		\caption{Current and voltage values obtained from the ngspice simulation}
-		\label{op2_results}
+			\end{tabular}}
+			\caption{Currents and voltages obtained for $v_S = 0$}
+			\label{op2_results}
 	\end{minipage}
 \end{figure}
-\fontsize{11}{12}\selectfont
+
+It is important to note that Node 9 is only used to define a 0V voltage source between $R_6$ and $R_7$ in order to use the current flowing through it to fully define the current controlled voltage source.
+
+\subsection{Transient Analysis - Natural Response}
+
+\begin{figure}[h]
+	\begin{minipage}[t]{.42\textwidth}
+		\vspace{0pt}
+		\hspace{12pt} In order to compute the natural response of $v_6$, we first need to set $v_S(t) = 0$ and set initial conditions so that $v_6$ and $v_8$ are what we obtained in Figure \ref{op2_results}, this ensures that in the start of thetransient analysis the capacitor is fully charged. By performing a transient analysis for $t \in [0, 20] ms$ we obtain the plot represented in Figure \ref{fig:sim_nat}.
+
+		\hspace{12pt} We can see that $v_6$ starts with a voltage of a little over 8V and quickly drops to almost 0 after only 20ms, this is explained by the fact that the capacitor (which started fully charged) is now only discharging and since there are no independent sources in the circuit, there is nothing to provide $v_6$ with voltage.
+	\end{minipage}
+	\begin{minipage}[t]{.55\textwidth}
+		\vspace{0pt}
+		\centering
+		\includegraphics[width=.75\textwidth, trim={0 0 0 8cm}, clip]{trans.pdf}
+		\caption{Natural response}
+		\label{fig:sim_nat}
+	\end{minipage}
+\end{figure}
+
+\subsection{Transient Analysis - Total Response}
+
+\begin{figure}[h]
+	\begin{minipage}[t]{.42\textwidth}
+		\vspace{0pt}
+		\hspace{12pt} The total response is obtained by performing a transient analysis whilst $v_S(t)$ is given by $v_S(t) = sin(2\pi$$ft)$ with f = 1000Hz, by plotting both $v_S(t)$ and $v_6(t)$ we obtain the Figure \ref{fig:sim_total} in which we can clearly see both the decaying exponential nature of the natural response and the sinusoidal of the excitation voltage.
+	\end{minipage}
+	\begin{minipage}[t]{.55\textwidth}
+		\vspace{0pt}
+		\centering
+		\includegraphics[width=.75\textwidth, trim={0 0 0 8cm}, clip]{forced.pdf}
+		\caption{Stimulus voltage $v_S(t)$ (red) and total response of $v_6(t)$ (blue)}
+		\label{fig:sim_total}
+	\end{minipage}
+\end{figure}
+
+\subsection{Frequency Response}
+\hspace{12pt} By doing a frequency sweep (analysing $v_S$ and $v_6$ while changing the value of f) over the interval $[10^{-1}, 10^6] Hz$, we can plot both the \textbf{magnitude} (Figure \ref{fig:sim_mag}) and the \textbf{phase} (Figure \ref{fig:sim_ph})
+\vspace{-25pt}
+\begin{figure}
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth, trim={2cm 3cm 0 8cm}, clip]{acm.pdf}
+		\caption{Magnitude plot}
+		\label{fig:sim_mag}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth, trim={2cm 3cm 0 8cm}, clip]{acp.pdf}
+		\caption{Phase plot}
+		\label{fig:sim_ph}
+	\end{minipage}
+\end{figure}
 
 
-\subsection{Operating Point $v_S(t) = 0$}
-\hspace{12pt} After setting $v_S = 0$ and replacing the capacitor with a voltage source $V_x = V_6 - V_8$ (with $V_6$ and $V_8$ obtained from the nodal analysis), we obtain the following results for the voltages and the currents: 
+
 

@@ -75,9 +75,9 @@ hold on;
 semilogx(f, vcm(vc_m, f));
 grid on;
 xlabel ("frequency (Hz)");
-ylabel ("Magnitude of v6");
+ylabel ("Magnitude in dB (V)");
 title ("Magnitude Bode Plot")
-print(hg, "magnitude", "-depsc");
+print(hg, "theory_magnitude", "-depsc");
 
 hi = figure();
 semilogx(f, v6ph(v6_ph, f));
@@ -85,7 +85,7 @@ hold on;
 semilogx(f, vcph(vc_ph, f));
 grid on;
 xlabel ("frequency (Hz)");
-ylabel ("Phase of v6");
+ylabel ("Phase (degrees)");
 title ("Phase Bode Plot")
-print(hi, "phase", "-depsc");
+print(hi, "theory_phase", "-depsc");
 

@@ -3,11 +3,11 @@
 # ---------------------------------------------------------
 
 #list of LibreOffice Draw files
-FILE=main
+FILE=report
 LODFIGS = $(patsubst %.odg,%.pdf,$(wildcard *.odg))
 
 all: $(FILE).pdf
-#	evince $< &
+	evince $< &
 
 Data.txt: ../other/t2_datagen.py
 	python2 $<
@@ -20,9 +20,13 @@ $(FILE).pdf: $(wildcard *.tex) $(LODFIGS) octave.log ngspice
 	pdflatex  $(FILE).tex
 
 octave.log: Data.txt
-	octave ../mat/t2.m > octave.log
+	octave ../mat/t2.m
+	octave ../mat/t2_6.m
 	octave ../mat/circuit_create.m
 
+../mat/octave.log: Data.txt
+	make -C ../mat
+	
 ngspice_1: ngspice_1.log
 	$(eval NGSTABS=$(shell grep _TAB $< | sed 's/_TAB//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_1_tab.tex;)
@@ -64,7 +68,7 @@ clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
 	@rm -rf *_tab.tex octave-workspace *.eps
-	@rm -rf *Ix.tex *Req.tex *voltages1.tex *voltages2.tex *v3_mag.tex *v3_ph.tex *Data.txt
+	@rm -rf *Ix.tex *voltages1.tex *voltages2.tex *v3_mag.tex *v3_ph.tex *Data.txt
 	@rm -rf *vx.txt *t2_1.cir *t2_2.cir *t2_3.cir *t2_4.cir
 
 .PHONY: all clean Data.txt ngspice octave
