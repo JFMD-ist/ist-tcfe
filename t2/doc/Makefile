@@ -21,7 +21,6 @@ $(FILE).pdf: $(wildcard *.tex) $(LODFIGS) octave.log ngspice
 
 octave.log: Data.txt
 	octave ../mat/t2.m
-	octave ../mat/t2_6.m
 	octave ../mat/circuit_create.m
 
 ../mat/octave.log: Data.txt
@@ -69,6 +68,6 @@ clean:
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
 	@rm -rf *_tab.tex octave-workspace *.eps
 	@rm -rf *Ix.tex *voltages1.tex *voltages2.tex *v3_mag.tex *v3_ph.tex *Data.txt
-	@rm -rf *vx.txt *t2_1.cir *t2_2.cir *t2_3.cir *t2_4.cir
+	@rm -rf *vx.txt *t2_1.cir *t2_2.cir *t2_3.cir *t2_4.cir *currents1.tex *Req.tex *Vx.tex
 
 .PHONY: all clean Data.txt ngspice octave

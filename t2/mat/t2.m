@@ -2,7 +2,7 @@ close all
 clear all
 format long
 pkg load miscellaneous
-%%Define the circuit constants
+pkg load symbolic
 
 filename = "../doc/Data.txt";
 fid = fopen(filename, "r");
@@ -48,7 +48,7 @@ V1 = N1\B1
 
 voltages1 = textable (V1, "rlines", "clines", "align", "c");
 v1_rep = strfind(voltages1, "&");
-for i = 1:length(v1_rep)
+for j = 1:length(v1_rep)
 	voltages1(v1_rep(1)) = "";
 	v1_rep = strfind(voltages1, "&");
 endfor
@@ -58,12 +58,31 @@ fid = fopen(filename, "w");
 fputs(filename, voltages1);
 fclose(fid);
 
+T1 = [R1, 0, 0; 0, R2, 0; 0, 0, R3]; C1 = [V1(1)-V1(2); V1(3)-V1(2); V1(7)-V1(8)];
+
+I1 = T1\C1;
+
+I1 = [I1(1,1); I1(2,1); 0; I1(3,1)];
+
+currents1 = textable (I1, "rlines", "clines", "align", "c");
+i1_rep = strfind(currents1, "&");
+for j = 1:length(i1_rep)
+	currents1(i1_rep(1)) = "";
+	i1_rep = strfind(currents1, "&");
+endfor
+
+filename = "currents1.tex";
+fid = fopen(filename, "w");
+fputs(filename, currents1);
+fclose(fid);
+
 %%-------------------------------------------------------------------------
 %%Question 2 Nodal Analysis
 %%-------------------------------------------------------------------------
 
 Vx = V1(6)-V1(8)
-filename = "vx.txt";
+
+filename = "Vx.tex";
 fid = fopen(filename, "w");
 fputs(filename, num2str(Vx));
 fclose(fid);
@@ -77,7 +96,7 @@ V2 = N2\B2
 
 voltages2 = textable (V2, "rlines", "clines", "align", "c");
 v2_rep = strfind(voltages2, "&");
-for i = 1:length(v2_rep)
+for j = 1:length(v2_rep)
 	voltages2(v2_rep(1)) = "";
 	v2_rep = strfind(voltages2, "&");
 endfor
@@ -101,6 +120,24 @@ fputs(filename, num2str(Req));
 fclose(fid);
 
 %%-------------------------------------------------------------------------
+%%Question 3 Natural Response
+%%-------------------------------------------------------------------------
+
+function [y] = V6n(Vx, R5, C, t)
+	y = Vx.*exp(-t./(R5.*C));
+endfunction
+
+t = 0:0.0001:0.02;
+hf = figure ();
+plot (t, V6n(Vx, R5, C, t));
+hold on;
+xlabel ("Time (ms)");
+ylabel ("Voltage (V)");
+title ("Natural solution of V6");
+saveas(hf, "natural")
+
+
+%%-------------------------------------------------------------------------
 %%Question 4 Forced Response
 %%-------------------------------------------------------------------------
 
@@ -115,12 +152,10 @@ V3 = N3\B3
 V3_mag = abs(V3);
 v6m = abs(V3(6));
 v6ph = arg(V3(6));
-vxm = abs(V3(6)-V3(8));
-vxph = arg(V3(6)-V3(8));
 
 voltages3 = textable (V3_mag, "rlines", "clines", "align", "c");
 v3_rep = strfind(voltages3, "&");
-for i = 1:length(v3_rep)
+for j = 1:length(v3_rep)
 	voltages3(v3_rep(1)) = "";
 	v3_rep = strfind(voltages3, "&");
 endfor
@@ -134,20 +169,110 @@ fclose(fid);
 %%Question 5 Total Response
 %%-------------------------------------------------------------------------
 
-function [y] = v6f(x, v6m, v6ph)
-	y = v6m.*sin(6283.18530717958.*x + v6ph)
+x = -0.005:0.00005:0.02;
+
+function [y] = v6f(x, v6m, v6ph, Vx, R5, C)
+	if x >= 0
+		y = v6m.*sin(6283.18530717958.*x + v6ph) + Vx.*exp(-x./(R5.*C));
+	else
+		y = v6m.*sin(v6ph) + Vx;
+	endif
 endfunction
 
-function [y] = vxf(x, vxm, vxph)
-	y = vxm.*sin(6283.18530717958.*x + vxph)
+results1 = zeros(1, size(x,2));
+
+w = 1;
+for j = x
+	results1(1,w) = v6f(x(1,w), v6m, v6ph, Vx, R5, C)
+	w = w + 1;
+endfor
+
+function [y] = Vss(x, Vs)
+	if x >= 0
+		y = sin(6283.18530717958.*x);
+	else
+		y = Vs;
+	endif
 endfunction
 
-x = 0:0.0001:0.02;
+results2 = zeros(1, size(x,2));
+
+w = 1;
+for j = x
+	results2(1,w) = Vss(x(1,w), Vs);
+	w = w + 1;
+endfor
+
 hf = figure();
-plot(x, v6f(x, v6m, v6ph));
+plot(x, results1);
 hold on;
-plot(x, sin(6283.18530717958.*x));
+plot(x, results2);
+grid on;
+xlabel("Time (ms)");
+ylabel("Voltage (V)");
+title("Final total solution V6f(t) and voltage source Vs(t)");
+legend("V6f(t)","Vs(t)", "location", "northwestoutside");
+print(hf, "plot.pdf");
+
+
+%%-------------------------------------------------------------------------
+%%Question 6 Frequency Response
+%%-------------------------------------------------------------------------
+
+
+syms w
+Yc = i*w*C
+
+N4 = [[G1, -G1-G2-G3, G2, 0, G3, 0, 0, 0]; [0, Kb+G2, -G2, 0,-Kb, 0, 0, 0]; [0, Kb, 0, 0, -Kb-G5, Yc+G5, 0, -Yc]; [0, 0, 0, G6, 0, 0, -G6-G7, G7]; [0, 0, 0, 1, 0, 0, 0, 0]; [1, 0, 0, -1, 0, 0,0, 0]; [0, 0, 0, Kd*G6, -1, 0, -Kd*G6, 1]; [0, G3, 0, G4, -G3-G4-G5, G5+Yc, G7, -G7-Yc]]
+
+B4 = [0;0;0;0;0;1;0;0]
+
+V4 = N4\B4
+
+v6_m = abs(V4(6))
+function [y] = v6m(v6_m, f)
+	w = 2*pi*f	
+	y = 20.*log10(eval(v6_m))
+endfunction
+
+v6_ph = arg(V4(6))
+function [y] = v6ph(v6_ph, f)
+	w = 2*pi*f	
+	y = eval(v6_ph)*180/pi
+endfunction
+
+vc_m = abs(V4(6) - V4(8))
+function [y] = vcm(vc_m, f)
+	w = 2*pi*f	
+	y = 20.*log10(eval(vc_m))
+endfunction
+
+vc_ph = arg(V4(6) - V4(8))
+function [y] = vcph(vc_ph, f)
+	w = 2*pi*f	
+	y = eval(vc_ph)*180/pi
+endfunction
+
+f = logspace(-1, 6);
+hg = figure();
+semilogx(f, v6m(v6_m, f));
 hold on;
-plot(x, vxf(x, vxm, vxph));
-print(hf, "forced", "-depsc");
+semilogx(f, vcm(vc_m, f));
+grid on;
+xlabel ("frequency (Hz)");
+ylabel ("Magnitude in dB (V)");
+title ("Magnitude Bode Plot")
+legend("v6m(f)","vcm(f)", "location", "northwestoutside");
+saveas(hg, "theory_mag.pdf");
+
+hi = figure();
+semilogx(f, v6ph(v6_ph, f));
+hold on;
+semilogx(f, vcph(vc_ph, f));
+grid on;
+xlabel ("frequency (Hz)");
+ylabel ("Phase (degrees)");
+title ("Phase Bode Plot")
+legend("v6ph(f)","vcph(f)", "location", "northwestoutside");
+saveas(hi, "theory_ph.pdf");
 

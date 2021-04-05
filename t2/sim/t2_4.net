@@ -30,7 +30,6 @@ echo "********************************************"
 echo  "Frequency analysis"
 echo "********************************************"
 ac dec 100 0.1 1MEG
-set vc = v(6) - v(8)
 hardcopy acm.ps vdb(6) vdb(1) db(v(6)-v(8))
 echo acm_FIG
 hardcopy acp.ps vp(6) vp(1)

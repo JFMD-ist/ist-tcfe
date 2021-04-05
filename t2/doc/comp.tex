@@ -1,0 +1,91 @@
+\label{Conclusion}
+\hspace{12pt} Now that we've obtained all the results from both the theoretical and the simulation analysis, we will compare them ...
+\subsection{$V_S$ constant and non zero}
+\hspace{12pt} Performing nodal analysis (octave table on the left) and operating point analysis (ngspice table on the right) for a dc voltage source $V_S$, we obtain the following results (Figure \ref{comp1}) in which we can clearly see the only difference being matters of rounding and the number of significant figures the Octave table provides.
+
+\begin{figure}[h]
+	\begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_1$ \\
+		    \hline
+		    $V_2$ \\
+		    \hline
+		    $V_3$ \\
+		    \hline
+		    $V_4$ \\
+		    \hline
+		    $V_5$ \\
+		    \hline
+		    $V_6$ \\
+		    \hline
+		    $V_7$ \\
+		    \hline
+		    $V_8$ \\
+		    \hline
+		\end{tabular}
+	\end{minipage}	
+	\hspace{-8pt}
+	\begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages1.tex}
+	\end{minipage}
+	\hspace{10pt}
+	\begin{minipage}{.3\textwidth}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Name} & \textbf{Value (A or V)} \\
+			\hline
+			\input{op_1_tab.tex}
+		\end{tabular}
+	\end{minipage}
+	\caption{Theoretical results using Octave (left) and simulation results from Ngspice (right)}    
+	\label{comp1}
+\end{figure}
+\pagebreak
+\subsection{$V_S = 0$ and capacitor replaced by voltage source}
+\hspace{12pt} After setting the voltage source $V_S$ off and replacing the capacitor by a dc voltage source $V_x = V_6 - V_8$ as obtained by the methods above (this is used in order to simulate the charged capacitor) and performing the same analysis as in Figure \ref{comp1}, we arrive at results in Figure \ref{comp2}. In the Ngspice table, we can see a repeated pattern of voltages whose order of magnite is around $10^{-15}$, this can be explained as approximations that the software makes while solving the respective systems os linear equations. Nonetheless, these voltages are so incredibly small that they are negligible. 
+
+\begin{figure}[h]
+	\begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_1$ \\
+		    \hline
+		    $V_2$ \\
+		    \hline
+		    $V_3$ \\
+		    \hline
+		    $V_4$ \\
+		    \hline
+		    $V_5$ \\
+		    \hline
+		    $V_6$ \\
+		    \hline
+		    $V_7$ \\
+		    \hline
+		    $V_8$ \\
+		    \hline
+		\end{tabular}
+	\end{minipage}	
+	\hspace{-8pt}
+	\begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages2.tex}
+	\end{minipage}
+	\hspace{10pt}
+	\begin{minipage}{.3\textwidth}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Name} & \textbf{Value (A or V)} \\
+			\hline
+			\input{op_2_tab.tex}
+		\end{tabular}
+	\end{minipage}
+	\caption{Theoretical results using Octave (left) and simulation results from Ngspice (right)}    
+	\label{comp2}
+\end{figure}
+
+We can thus see that in both the analysed cases, the voltage results from both methods agree with each other within a margin of $10^{-14} V$, we can then conclude that the Ngspice software does appear to use the same methods as the ones introduced in the theoretical analysis section.

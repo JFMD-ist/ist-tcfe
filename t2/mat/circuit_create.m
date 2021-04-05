@@ -65,7 +65,7 @@ fclose(fid);
 %t2_2
 %---------------------------------------------------------------------
 
-filename = "../doc/vx.txt";
+filename = "../doc/Vx.tex";
 fid = fopen(filename, "r");
 Vx = dlmread(filename);
 fclose(fid);
