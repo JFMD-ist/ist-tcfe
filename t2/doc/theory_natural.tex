@@ -1,0 +1,27 @@
+We will now analyse the natural solution V6n(t) when t varies in the interval [0,20] ms. To do so, we will use the equivalent resistance calculated before.
+
+We start with the equation of a linear capacitor:
+
+\begin{gather}
+	Q(t)=Cv(t) \iff Q(t)=-CR_{eq}i(t) \iff Q(t)=-CR_{eq}\frac{dQ(t)}{dt} \iff \frac{dQ(t)}{Q(t)}=-\frac{dt}{CR_{eq}} \iff \nonumber \\ \iff \int_{Q_0}^{Q(t)}\frac{1}{Q(t)}dQ(t)=\int_{0}^{t}-\frac{1}{CR_{eq}}dt \iff ln(\frac{Q(t)}{Q_0})=-\frac{t}{CR_{eq}} \iff e^{ln(\frac{Q(t)}{Q_0})}=e^{-\frac{t}{CR_{eq}}} \iff \nonumber \\ \iff \frac{Q(t)}{Q_0}=e^{-\frac{t}{CR_{eq}}} \iff Q(t)=Q_0e^{-\frac{t}{CR_{eq}}} \iff \frac{Q(t)}{C}=\frac{Q_0}{C}e^{-\frac{t}{CR_{eq}}} \iff \nonumber \\ \iff V_{6n}(t)=V_0e^{-\frac{t}{CR_{eq}}}
+\end{gather}
+
+Assuming the initial condition of $V_0=V_x$ the natural solution for the capacitor is:
+
+\vspace{10pt}
+
+$V_{6n}(t)=V_xe^{-\frac{t}{CR_{eq}}}$
+
+\vspace{10pt}
+
+We can now plot the graph of the solution for t $\in$[0,20] ms:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=400pt, trim={0, 7cm, 0, 6cm}, clip]{natural.pdf}
+	\caption{Natural solution of the capacitor}
+	\label{fig:natural}
+\end{figure}
+
+\newpage
+

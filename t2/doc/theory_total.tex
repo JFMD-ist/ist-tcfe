@@ -1,0 +1,28 @@
+The total solution v6t(t) can be obtained by superimposing the natural and forced solutions. In section 2.2 we determined the function of the natural solution, now we will determine the function of the forced solution before proceding with the superimposing. 
+
+The complex equation of the phaser is:
+
+\begin{equation}
+	\widetilde{V_s}=V_se^{-j\varphi_s} \implies v_{6f}(t)=V_6sin(\omega t+\varphi_s)
+\end{equation}
+
+Where $\omega=2\pi f=2000\pi$ and $\varphi$ is the argument of $\widetilde{V_S}$
+
+\vspace{20pt}
+
+Now we can superimpose both equations and obtain the final total solution:
+
+\begin{gather}
+	v_6(t)=v_{6n}(t)+v_{6f}(t) \iff v_6(t)=V_6sin(\omega t+\varphi_s)+V_xe^{-\frac{t}{R_5C}}
+\end{gather}
+
+If we plot this function for t $\in$[-5,20] ms we get the following graph:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=400pt, trim={0, 7cm, 0, 6cm}, clip]{plot.pdf}
+	\caption{Total solution $v_6(t)$}
+	\label{fig:total}
+\end{figure}
+
+\newpage

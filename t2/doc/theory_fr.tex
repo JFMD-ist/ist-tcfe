@@ -1,0 +1,35 @@
+Finally we will analyse the frequency response of each phasor. To do so we will simply use the same method we used in section 4, however now $Y_c$ will remain as a variable.
+
+$Y_c(f)=j2\pi fC$
+
+This way, the result that Octave gives us (after solving the matrix equation) for the different voltages (now as phasors) will depend on f.
+By defining $\widetilde{V_c}$ as the difference between the phasors $\widetilde{V_6}$ and $\widetilde{V_8}$, we can plot both the magnitude and the phase of $\widetilde{V_6}$ and $\widetilde{V_c}$ as functions of f $\in$ [$10^{-1}$ , $10^6$] Hz, which we will define in a logarithmic scale.
+
+\vspace{20pt}
+
+The magnitude plot will have values of the magnitude in dB, which we define in the following way:
+
+\vspace{20pt}
+
+$V_{dB} = 20log_{10}(V)$
+
+\vspace{20pt}
+
+We can now plot the resulting functions $v_c(f)$ and $v_6(f)$:
+
+
+\begin{figure}[h!]
+	\centering
+	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_mag.pdf}}
+	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_ph.pdf}}
+	\label{fig:fr}
+\end{figure}
+
+
+
+
+
+
+
+
+\newpage

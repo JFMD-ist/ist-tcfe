@@ -1,0 +1,79 @@
+ow we analyse the forced solution v6f(t) when t varies in [0,20] ms. To do so we will do once more nodal analysis. Using the phasor $\widetilde{V_S}=V_se^{-j\varphi_s}$, and using equations (1), (2), (4), (5), (6) and (7), we can now get the final 2 equations from:
+
+Node 6:
+
+\begin{gather}
+	-\widetilde{I_b}+\widetilde{I_5}-\widetilde{I_c}=0 \iff \nonumber \\
+    \iff -K_b(\widetilde{V_2}-\widetilde{V_5})+G_5(\widetilde{V_5}-\widetilde{V_6})-Y_c(\widetilde{V_6}-\widetilde{V_8})=0 \iff \\
+    \iff  Kb\widetilde{V_2}-(Kb+G5)\widetilde{V_5}+(Yc+G5)\widetilde{V_6}-Yc\widetilde{V_8}=0 \nonumber
+\end{gather}
+
+Super Node:
+
+\begin{gather}
+	\widetilde{I_3}-\widetilde{I_4}-\widetilde{I_5}+\widetilde{I_7}+\widetilde{I_c}=0 \iff \nonumber \\
+    \iff G_3(\widetilde{V_2}-\widetilde{V_5})-G_4(\widetilde{V_5}-\widetilde{V_4})-G_5(\widetilde{V_5}-\widetilde{V_6})+G_7(\widetilde{V_7}-\widetilde{V_8})+Y_c(\widetilde{V_6}-\widetilde{V_8})=0 \iff \\
+    \iff G3\widetilde{V_2}+G4\widetilde{V_4} -(G3+G4+G5)\widetilde{V_5}+(G5+Yc)\widetilde{V_6}+G7\widetilde{V_7}-(G7+Yc)\widetilde{V_8}=0 \nonumber
+\end{gather}
+
+With the 8 equations we have the following linear equation system:
+
+\vspace{10pt}
+
+\fontsize{8}{12}\selectfont
+$\begin{bmatrix}
+    G1 & -(G1+G2+G3) & G2 & 0 & G3 & 0 & 0 & 0 \\
+    0 & Kb+G2 & -G2 & 0 & -Kb & 0 & 0 & 0 \\
+    0 & Kb & 0 & 0 & -Kb-G5 & Yc+G5 & 0 & -Yc \\
+    0 & 0 & 0 & G6 & 0 & 0 & -(G6+G7) & G7 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -KdG6 & -1 & 0 & KdG6 & 1 \\
+    0 & G3 & 0 & G4 & -G3-G4-G5 & G5+Yc & G7 & -G7-Yc
+\end{bmatrix}$ $\cdot$
+$\begin{bmatrix}
+     V_1 \\V_2 \\V_3 \\V_4 \\V_5 \\V_6 \\V_7 \\V_8
+\end{bmatrix}$ =
+$\begin{bmatrix}
+    0 \\0 \\0 \\0 \\0 \\1 \\0 \\0 
+\end{bmatrix}$
+
+\fontsize{11}{12}\selectfont
+\vspace{20pt}
+Using Octave to calculate the solution of the system we obtain:
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_1$ \\
+		    \hline
+		    $V_2$ \\
+		    \hline
+		    $V_3$ \\
+		    \hline
+		    $V_4$ \\
+		    \hline
+		    $V_5$ \\
+		    \hline
+		    $V_6$ \\
+		    \hline
+		    $V_7$ \\
+		    \hline
+		    $V_8$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{v3_mag.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Electric potential of the 8 nodes}
+	\label{theory_voltages}
+\end{figure}
+
+\newpage

@@ -1,0 +1,141 @@
+\hspace{12pt} Firstly we begin by analising the circuit for $t<0$. Using the Kirchoff's Current Law we can determine the currents in branches and voltages in nodes. The following equations were used in the node analysis:
+
+\vspace{10pt}
+Node 2:
+\begin{gather}
+    I_1+I_2-I_3=0 \iff \nonumber \\ 
+    \iff G_1(V_1-V_2)+G_2(V_3-V_2)-G_3(V_2-V_5)=0 \iff \\
+    \iff G_1V_1-(G_1+G_2+G_3)V_2+G_2V_3+G_3V_5 \nonumber
+\end{gather}
+
+Node 3:
+\begin{gather}
+    -I_2+I_b=0 \iff \nonumber \\
+    \iff -G_2(V_3-V_2)+K_b(V_2-V_5) \iff \\
+    \iff (K_b+G_2)V_2-G_2V_3-K_bV_5=0 \nonumber
+\end{gather}
+
+Node 6:
+\begin{gather}
+    -I_b+I_5-I_c=0 \iff \nonumber \\
+    \iff -K_b(V_2-V_5)+G_5(V_5-V_6)-I_c=0 \iff \\
+    \iff -K_bV_2-G_5V_6+(K_b+G_5)V_5=0 \nonumber
+\end{gather}
+
+Node 7:
+\begin{gather}
+    I_c-I_7=0 \iff \nonumber \\
+    \iff G_6(V_4-V_7)-G_7(V_7-V_8)=0 \iff \\
+    \iff G_6V_4-(G_6+G_7)V_7+G_7V_8=0 \nonumber
+\end{gather}
+\vspace{5pt}
+
+We can conclude by observation:
+\begin{equation}
+    V_1-V_4=V_s
+\end{equation}
+\vspace{5pt}
+
+The current controlled voltage source also gives:
+\begin{gather}
+    V_d=K_dI_d \iff \nonumber \\
+    \iff V_5-V_8=K_dG_6(V_4-V_7) \iff \\
+    \iff -V_8+K_dG_6V_7+V_5-K_dG_6V_4=0 \nonumber
+\end{gather}
+\vspace{5pt}
+
+We get the last equation analysing the supernode:
+\begin{gather}
+    I_3-I_4-I_5+I_7+I_c=0 \iff \nonumber \\
+    \iff G_3(V_2-V_5)-G_4(V_5-V_4)-G_5(V_5-V_6)+G_7(V_7-V_8)+0=0 \iff \\
+    \iff G_3V_2+G_4V_4-(G_3+G_4+G_5)V_5+G_5V_6+G_7V_7-G_7V_8=0 \nonumber
+\end{gather}
+
+Using the 8 equations above, we have the following linear equations system:
+\vspace{10pt}
+
+\fontsize{8}{12}\selectfont
+$\begin{bmatrix}
+    G1 & -(G1+G2+G3) & G2 & 0 & G3 & 0 & 0 & 0 \\
+    0 & Kb+G2 & -G2 & 0 & -Kb & 0 & 0 & 0 \\
+    0 & Kb & 0 & 0 & -(Kb+G5) & G5 & 0 & 0 \\
+    0 & 0 & 0 & G6 & 0 & 0 & -(G6+G7) & G7 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -KdG6 & -1 & 0 & KdG6 & 1 \\
+    0 & G3 & 0 & G4 & -(G3+G4+G5) & G5 & G7 & -G7
+\end{bmatrix}$ $\cdot$
+$\begin{bmatrix}
+     V_1 \\V_2 \\V_3 \\V_4 \\V_5 \\V_6 \\V_7 \\V_8
+\end{bmatrix}$ =
+$\begin{bmatrix}
+    0 \\0 \\0 \\0 \\0 \\V_s \\0 \\0 
+\end{bmatrix}$
+
+\fontsize{11}{12}\selectfont
+\vspace{20pt}
+Using Octave to calculate the solution of the system we obtain:
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_1$ \\
+		    \hline
+		    $V_2$ \\
+		    \hline
+		    $V_3$ \\
+		    \hline
+		    $V_4$ \\
+		    \hline
+		    $V_5$ \\
+		    \hline
+		    $V_6$ \\
+		    \hline
+		    $V_7$ \\
+		    \hline
+		    $V_8$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages1.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Electric potential of the 8 nodes}
+	\label{theory_voltages}
+\end{figure}
+
+
+We can now use Ohm's Law to calculate the current flowing through each resistor which, consequently, allows us to reach the values for the currents in the 4 meshes.
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $I_a$ \\
+		    \hline
+		    $I_b$ \\
+		    \hline
+		    $I_c$ \\
+		    \hline
+		    $I_d$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{currents1.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Current values for the different meshes}
+	\label{theory_currents}
+\end{figure}
+
