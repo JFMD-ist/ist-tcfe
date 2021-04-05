@@ -1,4 +1,4 @@
-Finally we will analyse the frequency response of each phasor. To do so we will simply use the same method we used in section 4, however now $Y_c$ will remain as a variable.
+\hspace{12pt} Finally we will analyse the frequency response of each phasor. To do so we will simply use the same method we used in section 4, however now $Y_c$ will remain as a variable.
 
 $Y_c(f)=j2\pi fC$
 
@@ -22,13 +22,13 @@ We can now plot the resulting functions $v_c(f)$ and $v_6(f)$:
 	\centering
 	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_mag.pdf}}
 	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_ph.pdf}}
-	\label{fig:fr}
+	\caption{Magnitude (a) and phase plots (b) of $v_c(f)$ and $v_6(f)$}
+	\label{fig:theory_fr}
 \end{figure}
 
+As we can see in the magnitude plot above (Figure \ref{fig:theory_fr}a), for low frequencies, the magnitude of $v_c$ is close to 1V (the magnitude of the source $v_s$) and as the frequency increases, this magnitude drops (as seen by the descending slope) for this reason, we can confirm that this circuit can be classified as a low-pass filter, this results from the nature of the linear capacitor: it takes time to discharge! and if the frequency of the source is too high it will not have enough time to do so and thus the voltage difference between the positive and negative plates will be nearly constant = sinusoidal with amplitude of 0 (is dB 0 does not exist but it can be expressed as a limit torward negative infinity which is exactly what we see in the magnitude plot of $v_c(f)$). 
 
-
-
-
+However, in the case of $v_6$, we see the same behavior at the lower half of the frequency space (constant followed by a descending slope) but for the higher half the slope dies down and the magnitude of $v_6$ approaches another constant (close to $10^{-5}V$).
 
 
 

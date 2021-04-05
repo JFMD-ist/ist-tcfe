@@ -32,7 +32,7 @@ echo "********************************************"
 ac dec 100 0.1 1MEG
 hardcopy acm.ps vdb(6) vdb(1) db(v(6)-v(8))
 echo acm_FIG
-hardcopy acp.ps vp(6) vp(1)
+hardcopy acp.ps vp(6) vp(1) phase(v(6)-v(8))
 echo acp_FIG
 
 quit

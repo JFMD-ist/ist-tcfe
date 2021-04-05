@@ -1,15 +1,17 @@
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.5\textwidth]{Circuit_diagram.pdf}
-	\caption{Circuit diagram}
-	\label{fig:circuit}
-\end{figure}
+\hspace{12pt} In this laboratorial session we were exposed to an electrical circuit (Figure \ref{fig:circuit}a) composed of four meshes, eight nodes and eleven total elements: 7 resistors ($R_1$ through $R_7$), 1 voltage source ($v_s$), 1 capacitor (C), 1 voltage controlled current source and, finally, 1 current controlled voltage source. The assumed node names and current directions are represented in Figure \ref{fig:circuit}b.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.4\textwidth]{Circuit_specs.pdf}
-	\caption{Node names and current directions}
-	\label{fig:circuit_spec}
+	\subfigure[]{\includegraphics[width=0.49\textwidth]{Circuit_diagram.pdf}}
+	\subfigure[]{\includegraphics[width=0.49\textwidth]{Circuit_specs.pdf}}
+	\caption{Circuit diagram (a) and assumed node names and current direction (b)}
+	\label{fig:circuit}
 \end{figure}
+ 
+For the theoretical analysis (section \ref{sec:theory}), we used the nodal method for $t<0$ (which results in the current through the capacitor being zero), in which, through Kirchoffs Current Law we determined the voltages for all the nodes and, consequently by applying Ohm's Law to resistors $R_1$, $R_2$ and $R_6$, the currents in the circuit meshes. Then, using Thévenins's theorem we calculated the Equivalent Resistance seen from the terminals of the capacitor, which we then used to determine the natural solution $v_{6n}(t)$. Afterwards we computed the Forced Solution by applying the same method as the one used for $t<0$ replacing, however, the voltages and currents with their respective phasors and the conductances of the resistors with the corresponding admittances, this resulted in a vector of the voltage phasors at every node, which we then used to create the forced solution (using the magnitude and phase of $\widetilde{V_6}$). We finally obtained the Total solution simply by superimposing the natural and forced solutions. To finalize the theoretical anlysis we analysed the frequency response of $v_c(f) = v_6(f) - v_8(f)$ and $v_6(f)$.
+
+To get the simulation in Ngspice (section \ref{sec:sim}) we begin with an operating point analysis, getting the values for the currents and the voltages for t<0 and for vs=0 (for this last one we replaced the capacitor with a voltage source $V_x = V_6 - V_8$ where $V_6$ and $V_8$ were obtained in the previous section). We then go on to the Transient Analysis, in which we computed and plotted the Natural Response and the Total Response of the voltage in node 6. Finally, for the Frequency Response, we do a frequency sweep so that we're able to plot both the magnitude and phase of $v_6$, $v_s$ and $v_c = v_6 - v_8$.
+
+Finally, in section \ref{sec:comp}, we analysed the tables obtained from the theoretical analysis and the ones obtained from the simulation software and came to the conclusion that there are little to no differences between these two methods.
 
 \pagebreak
