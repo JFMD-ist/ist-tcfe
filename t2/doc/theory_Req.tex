@@ -1,0 +1,78 @@
+In order to calculate the equivalent resistance seen from the terminals of the capacitor, we use the ThÃ©ovin Theorem by replacing the capacitor for a voltage source with an equivalent value of Vx = V(6)-V(8) = \input{Vx} V. Now the equivalent resistance is the value of the hypotetical resistor in series with the voltage source Vx. We now assume Vs = 0V, and since the voltage source has an interior resistance of 0, it is equivalent to short-circuit that source. We can now perform a node analysis using KCL and other restrains to determine the voltages in each node, and then the currents in each mesh.
+
+Equations (1), (2), (4), (5), (6) and (7) from the previous section are equivalent in this one. We can get the remaining 2 equations from:
+
+\begin{gather}
+	V_x=V_6-V_8
+\end{gather}
+
+And from node 4, which has been short-circuited with node 1:
+
+\begin{gather}
+	-I_1+I_4-I_6=0 \iff \nonumber \\
+	\iff -G_1(V_1-V_2)+G_4(V_5-V_4)-G_6(V_4-V_7)=0 \iff \\
+	\iff -G_1V_1+G_1V_2-(G_4+G_6)V_4+G_4V_5+G_6V_7=0 \nonumber
+\end{gather}
+
+With all the equations we can now form the following linear equation system:
+
+\fontsize{8}{12}\selectfont
+$\begin{bmatrix}
+    G1 & -(G1+G2+G3) & G2 & 0 & G3 & 0 & 0 & 0 \\
+    0 & Kb+G2 & -G2 & 0 & -Kb & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 \\
+    0 & 0 & 0 & G6 & 0 & 0 & -(G6+G7) & G7 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -KdG6 & -1 & 0 & KdG6 & 1 \\
+    -G1 & G1 & 0 & -(G4+G6) & G4 & 0 & G6 & 0
+\end{bmatrix}$ $\cdot$
+$\begin{bmatrix}
+     V_1 \\V_2 \\V_3 \\V_4 \\V_5 \\V_6 \\V_7 \\V_8
+\end{bmatrix}$ =
+$\begin{bmatrix}
+    0 \\0 \\Vx \\0 \\0 \\0 \\0 \\0 
+\end{bmatrix}$
+
+\fontsize{11}{12}\selectfont
+\vspace{20pt}
+
+Using Octave to calculate the solution of the system we obtain:
+
+\begin{figure}[h]
+	\begin{center}
+	    \begin{minipage}{.3\textwidth}
+		\flushright
+		\begin{tabular}{|c|}
+		    \hline
+		    $V_1$ \\
+		    \hline
+		    $V_2$ \\
+		    \hline
+		    $V_3$ \\
+		    \hline
+		    $V_4$ \\
+		    \hline
+		    $V_5$ \\
+		    \hline
+		    $V_6$ \\
+		    \hline
+		    $V_7$ \\
+		    \hline
+		    $V_8$ \\
+		    \hline
+		\end{tabular}
+	    \end{minipage}
+	    \hspace{-8pt}
+	    \begin{minipage}{.3\textwidth}
+		\flushleft
+		\input{voltages2.tex}
+	    \end{minipage}
+	\end{center}
+	\caption{Electric potential of the 8 nodes}
+	\label{theory_voltages}
+\end{figure}
+
+Now that we have the values for the voltages in every node, we can use Ohm's Law to calculate the current flowing through $V_x$:
+$V_6 - V_8 = R_5 \cdot I_x \iff I_x = \frac{V_6 - V_8}{R_5} = $ \input{Ix.tex}A,
+and with the current $I_x$, the equivalent resistance becomes $R_{eq} = \frac{V_x}{I_x} =$ \input{Req.tex}$\Omega$.
