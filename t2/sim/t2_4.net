@@ -5,7 +5,8 @@
 
 .ic v(6) = 8.403876e+00
 .ic v(8) = 0
-
+.op
+.end
 .control
 set hcopypscolor=1
 set color0=white
@@ -35,8 +36,6 @@ echo acm_FIG
 hardcopy acp.ps vp(6) vp(1) phase(v(6)-v(8))
 echo acp_FIG
 
-quit
 .endc
 
-.end
 

@@ -5,7 +5,8 @@
 
 .ic v(6) = 8.403876e+00
 .ic v(8) = 0
-
+.op
+.end
 .control
 set hcopypscolor=1
 set color0=white
@@ -21,8 +22,7 @@ tran 0.01m 20m
 hardcopy trans.ps v(6)
 echo trans_FIG
 
-quit
+
 .endc
 
-.end
 
