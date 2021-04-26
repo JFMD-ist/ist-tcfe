@@ -1,0 +1,39 @@
+# ---------------------------------------------------------
+# type "make" command in Unix to create report.pdf 
+# ---------------------------------------------------------
+
+#list of LibreOffice Draw files
+FILE=report
+LODFIGS = $(patsubst %.odg,%.pdf,$(wildcard *.odg))
+
+all: $(FILE).pdf
+	evince $< &
+	
+ngspice: ngspice
+
+$(FILE).pdf: $(wildcard *.tex) $(LODFIGS) ngspice
+	pdflatex  $(FILE).tex
+	pdflatex  $(FILE).tex
+	pdflatex  $(FILE).tex
+	
+ngspice: ngspice.log
+	$(eval NGSTABS=$(shell grep _TAB $< | sed 's/_TAB//g' | sed ':a;N;$!ba;s/\n/ /g'))
+	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_1_tab.tex;)
+	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
+
+ngspice.log: ../sim/t3.net
+	ngspice -b $< -o $@
+
+
+#convert libreoffice draw figures to pdf
+%.pdf: %.odg
+	soffice --headless --convert-to pdf $<
+
+clean:
+	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
+	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
+	@rm -rf *_tab.tex octave-workspace *.eps
+	@rm -rf *Ix.tex *voltages1.tex *voltages2.tex *v3_mag.tex *v3_ph.tex *Data.txt
+	@rm -rf *vx.txt *t2_1.cir *t2_2.cir *t2_3.cir *t2_4.cir *currents1.tex *Vx.tex *Req.tex
+
+.PHONY: all clean ngspice

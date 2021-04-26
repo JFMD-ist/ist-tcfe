@@ -1,0 +1,68 @@
+* Title: Envelope Detector Circuit
+.options savecurrents
+.param N=(1/11.86)
+*Voltage Source
+Vs 1 0 dc sin(0 230 50)
+
+*Full-wave Rectifier
+D1 2 VCC Default
+D2 GND 2 Default
+D3 3 VCC Default
+D4 GND 3 Default
+
+*Envelope Detector
+R1 VCC GND 10k
+C1 VCC GND 10u
+
+*Final regulation
+R2 VCC 4 3k
+D5 4 5 Default 
+D6 5 6 Default 
+D7 6 7 Default 
+D8 7 8 Default 
+D9 8 9 Default 
+D10 9 10 Default 
+D11 10 11 Default 
+D12 11 12 Default 
+D13 12 13 Default 
+D14 13 14 Default 
+D15 14 15 Default 
+D16 15 16 Default 
+D17 16 17 Default 
+D18 17 18 Default 
+D19 18 19 Default 
+D20 19 20 Default 
+D21 20 21 Default
+D22 21 GND Default
+
+*Transformer
+E1 2 3 1 0 N
+F1 1 0 E1 N
+
+.model Default D 
+
+.op
+.end
+.control
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+op
+echo  "op_TAB"
+print mean(VCC)
+print mean(v(4)) - 12
+print {maximum(v(VCC))-minimum(v(VCC))}
+print {maximum(v(4))-minimum(v(4))}
+echo  "op_END"
+tran 50u .1 0.02
+plot v(VCC) 12 v(4)
+hardcopy converter.ps v(1) v(4)
+hardcopy output.ps v(4) 12 
+exit
+.endc
