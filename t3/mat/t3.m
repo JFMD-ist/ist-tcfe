@@ -1,13 +1,12 @@
 close all
 clear all
 format long
-pkg load symbolic
 
 
 %%-------------------------------------------------------------------------
 %%Envelope Detector
 %%-------------------------------------------------------------------------
-nt = (1/14)
+nt = (1/9.4)
 v_amp = 230*nt
 t_off = (1/(100*pi))*atan(1/(100*pi*0.1))
 numb = 5
@@ -48,7 +47,7 @@ print(hf, "plot.pdf");
 
 
 function y = r(v, v_o)
-R = 1000;
+R = 3000;
 Is = 1e-14;
 Vt = 0.025;
 n = 18;
@@ -84,7 +83,21 @@ average = sum/size(vr, 2);
 
 offset = average - 12
 ripple = max(vr) - min(vr)
-merit = 1/(43*(ripple + abs(offset) + 1e-6))
+merit = 1/(25.2*(ripple + abs(offset) + 1e-6))
+
+table_end = '\\ \hline';
+
+filename = "output.tex";
+fid = fopen(filename, "w");
+fprintf(fid, "\\begin{tabular}{|c|c|}\n");
+fprintf(fid, "\\hline\n");
+fprintf(fid, "Average (v4) - 12 & %f %s\n", offset, table_end);
+fprintf(fid, "\\hline\n");
+fprintf(fid, "Ripple  & %f %s\n", ripple, table_end);
+fprintf(fid, "\\hline\n");
+fprintf(fid, "Merit figure & %f %s\n", merit, table_end);
+fprintf(fid, "\\end{tabular}\n");
+fclose(fid);
 
 hg = figure();
 plot(t, vr);
