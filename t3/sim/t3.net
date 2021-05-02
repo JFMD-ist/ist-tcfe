@@ -1,6 +1,6 @@
 * Title: Envelope Detector Circuit
 .options savecurrents
-.param N=(1/11.86)
+.param N=(1/5)
 *Voltage Source
 Vs 1 0 dc sin(0 230 50)
 
@@ -14,8 +14,9 @@ D4 GND 3 Default
 R1 VCC GND 10k
 C1 VCC GND 10u
 
-*Final regulation
+*Voltage Regulator
 R2 VCC 4 3k
+
 D5 4 5 Default 
 D6 5 6 Default 
 D7 6 7 Default 
@@ -34,6 +35,7 @@ D19 18 19 Default
 D20 19 20 Default 
 D21 20 21 Default
 D22 21 GND Default
+
 
 *Transformer
 E1 2 3 1 0 N
@@ -54,6 +56,10 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
 op
+tran 50u .1 0.02
+plot v(VCC) 12 v(4)
+hardcopy converter.ps v(1) v(4)
+hardcopy output.ps v(4) 12 
 echo  "op_TAB"
 print mean(VCC)
 print mean(v(4)) - 12
@@ -64,5 +70,4 @@ tran 50u .1 0.02
 plot v(VCC) 12 v(4)
 hardcopy converter.ps v(1) v(4)
 hardcopy output.ps v(4) 12 
-exit
 .endc
