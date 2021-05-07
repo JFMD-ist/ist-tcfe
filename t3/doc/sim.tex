@@ -1,0 +1,43 @@
+\hspace{12pt} In order to fully simulate the circuit at hand, we represented the transformer as a pair of dependent sources: a Current Controlled Current Source (CCCS) attached to the AC input, and a Voltage Controlled Voltage Source (VCVS) connected to the secondary of the circuit. It's important to note that for the entirety of the ngspice script, we used the software's default diode model.
+\vspace{-8pt}
+\begin{figure}[h]
+	\begin{minipage}[t]{.45\textwidth}
+		\vspace{0pt}
+		\hspace{12pt} After performing a transient analysis over 10 periods of the input AC signal, we obtain the following results for the output voltage of the Envelope Detector and Voltage Regulator compared to the input voltage (Figure ~\ref{fig:ed_vr}). We can analyse the Voltage Regulator output by defining the deviation of its mean from the intended 12V and the ripple of the oscillation (the amplitude of the oscillation), this way we obtain the values seen in Figure \ref{fig:sim_results}.
+	\end{minipage}
+	\begin{minipage}[t]{.5\textwidth}
+		\vspace{0pt}
+        	\centering
+        	\includegraphics[width=.9\textwidth, trim={0 0 0 8cm}, clip]{ed+vr_sim.pdf}
+        	\caption{Envelope Detector and Voltage Regulator Outputs compared to input voltage}
+        	\label{fig:ed_vr}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\scalebox{0.7}{
+  		\begin{tabular}{|c|c|}
+			\hline
+			\input{op_tab.tex}  		
+  		\end{tabular}
+	}
+	\caption{Ngspice results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value}
+	\label{fig:sim_results}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.4\textwidth, trim={0 2cm 0 9cm}, clip]{vo_sim.pdf}
+	\caption{Plot of voltage AC/DC converter output offset by -12V}
+	\label{fig:sim_vo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.5\textwidth, trim={0 2cm 0 9cm}, clip]{converter.pdf}
+	\caption{Plot of input AC signal VS output DC signal}
+	\label{fig:sim_converter}
+\end{figure}
+\pagebreak
+

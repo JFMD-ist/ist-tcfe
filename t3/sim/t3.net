@@ -1,21 +1,24 @@
 * Title: Envelope Detector Circuit
 .options savecurrents
-.param N=(1/11.86)
+.param N=(1/1.354)
+.param var1 = 200k
+.param var2 = 100k
+.param var3 = 200u
 *Voltage Source
 Vs 1 0 dc sin(0 230 50)
 
 *Full-wave Rectifier
-D1 2 VCC Default
-D2 GND 2 Default
+D1 GND 2 Default
+D2 2 VCC Default
 D3 3 VCC Default
 D4 GND 3 Default
 
 *Envelope Detector
-R1 VCC GND 10k
-C1 VCC GND 10u
+R1 VCC GND var1
+C1 VCC GND var3
 
 *Voltage Regulator
-R2 VCC 4 3k
+R2 VCC 4 var2
 
 D5 4 5 Default 
 D6 5 6 Default 
@@ -54,15 +57,23 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
+set var1 = 200k
+set var2 = 100k
+set var3 = 200u
+
 
 op
-tran 50u .12 0.02
+tran 50u .2 0.02
 hardcopy converter.ps v(1) v(4) 12
-hardcopy output.ps v(VCC) v(4) 12 
-hardcopy vo.ps {v(4)-12}
+hardcopy ed+vr_sim.ps v(VCC) v(4) v(1) 
+hardcopy vo_sim.ps {v(4)-12}
 echo  "op_TAB"
 print mean(v(4)) - 12
-print {maximum(v(4))-minimum(v(4))}
-print 1/(25.2*abs(mean(v(4)) - 12) + 25.2*(maximum(v(4))-minimum(v(4))) + 25.2*0.000001)
+print {maximum(v(4))-minimum(v(4))} 
+print {2.2+$var1/1000 + $var2/1000 + $var3*1000000}
+set deviation = {abs(mean(v(4)) - 12)}
+set ripple = {maximum(v(4))-minimum(v(4))}
+print 1/((2.2+$var1/1000 + $var2/1000 + $var3*1000000)*($deviation + $ripple + 0.000001))
+
 echo  "op_END"
 .endc

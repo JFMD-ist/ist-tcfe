@@ -19,8 +19,8 @@ octave.log:
 	
 pspdf: ngspice.log
 	ps2pdf converter.ps converter.pdf
-	ps2pdf output.ps output.pdf
-	ps2pdf vo.ps vo.pdf
+	ps2pdf ed+vr_sim.ps ed+vr_sim.pdf
+	ps2pdf vo_sim.ps vo_sim.pdf
 
 ngspice: ngspice.log
 	$(eval NGSFIGS=$(shell grep _FIG $< | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
