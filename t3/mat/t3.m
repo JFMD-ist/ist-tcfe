@@ -33,6 +33,17 @@ for j = 1:1:size(t,2)
 ed = horzcat(ed, v_o(t(1, j), t_off, v_amp));
 endfor
 
+he = figure();
+plot(t, ed);
+hold on;
+plot(t, abs(v_amp*cos(100*pi*t)));
+grid on;
+xlabel("Time (ms)");
+ylabel("Voltage (V)");
+title("Envelope Detector Output");
+legend("v_{ED}(t)", "v_S(t)", "location", "northwestoutside");
+print(he, "ed.pdf");
+
 %%-------------------------------------------------------------------------
 %%Voltage Regulator
 %%-------------------------------------------------------------------------
@@ -75,7 +86,8 @@ average = sum/size(vr, 2);
 
 offset = average - 12
 ripple = max(vr) - min(vr)
-merit = 1/((2.2 + R1/1000 + R2/1000 + C1*1000000)*(ripple + abs(offset) + 1e-6))
+cost = 2.2 + R1/1000 + R2/1000 + C1*1000000
+merit = 1/(cost*(ripple + abs(offset) + 1e-6))
 
 table_end = '\\ \hline';
 
@@ -83,10 +95,9 @@ filename = "output.tex";
 fid = fopen(filename, "w");
 fprintf(fid, "\\begin{tabular}{|c|c|}\n");
 fprintf(fid, "\\hline\n");
-fprintf(fid, "Average (v4) - 12 & %f %s\n", offset, table_end);
-fprintf(fid, "\\hline\n");
+fprintf(fid, "Mean (v4) - 12 & %f %s\n", offset, table_end);
 fprintf(fid, "Ripple  & %f %s\n", ripple, table_end);
-fprintf(fid, "\\hline\n");
+fprintf(fid, "Cost of the components  & %f %s\n", cost, table_end);
 fprintf(fid, "Merit figure & %f %s\n", merit, table_end);
 fprintf(fid, "\\end{tabular}\n");
 fclose(fid);

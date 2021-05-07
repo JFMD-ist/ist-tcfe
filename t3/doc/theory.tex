@@ -1,0 +1,81 @@
+\subsection{Transformer}
+\hspace{12pt} The theoretical model of the circuit begins with the transformer. Just like in the simulation, in ngspice, we assume a voltage source with a sinusoidal voltage $v_3$, defined as: $v_3 = Nv_1$ and $i_3 = Ni_1$.
+Where N is the conversion ratio of the transformer (i.e. a transformer with N=1/10 transforms a 230V current in a 23V current) and $v_1$ and $i_1$ are the input voltage of the transformer and the input current of the transformer, respectively. These values are equivalent to the observed in a home power outlet, a sinusoidal voltage with an equivalent amplitude of 230V and frequency of 50Hz. Therefore $v_1(t) = Acos(2\pi ft) \iff v_s(t) = 230cos(100\pi t)$
+
+Our transformer will have a $N=\frac{1}{1.134}$. We chose this value by trial and error to determine a value that optimized the merit of the circuit. With that, the voltage output of the transformer will be: $v_3(t) = NAcos(wt) \iff v_3(t) = 202.821869489cos(100\pi t)$
+
+\subsection{Envelope Detector}
+\hspace{12pt}The next step in the simulation is to convert the sinusoidal alternate current output of the transformer in a direct current. For that we used a full wave rectifier. This way, the voltage in node 4, which we called $v_s$ is:
+
+\vspace{-15pt}
+\begin{gather}
+    v_s(t) = |202.821869489(100\pi t)| \nonumber
+\end{gather}
+
+We will now analyze the output of the envelope detector. We begin by calculating $t_off$ using the equation in the slides of the lectures (Lesson 14). With $t_off$ calculated we can then calculate $t_on$ by saying that $t_on$ is the moment when the exponential function intersects the sinusoidal function, like the professor did in his example during the lectures. The output function then becomes:
+
+\vspace{-8pt}
+\[ 
+v_o(t)= \left.
+\begin{cases} 
+	|202.821869489cos(100\pi t)|, & D_{on} \\
+	202.821869489cos(200\pi (t_{off}))e^{-\frac{t-(t_off))}{RC}}, & D_{off}
+\end{cases}
+\right.
+\]
+
+Using Octave to plot the function we can see the expected results:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=300pt, trim={0, 7cm, 0, 6cm}, clip]{ed.pdf}
+	\caption{Theoretical ouput of the Envelope Detector section of the circuit}
+	\label{fig:envelope}
+\end{figure}
+
+\newpage
+
+\subsection{Voltage Regulator}
+\hspace{12pt} Lastly we will analyze the output of the voltage regulator, assuming the input will be the voltage output of the envelope detector. The voltage regulator is composed of a resistor and many diodes in series. If we use the model of the ideal diode, we can replace $n$ diodes with a single diode with $\eta$=$n\eta _i$. This way, we can apply the equation for a resistor in series with a diode:
+\vspace{-8pt}
+\begin{gather}
+    f(v)=v+RI_S(e^{\frac{v}{n \eta V_T}}-1)-v_{ED}=0 \nonumber
+\end{gather}
+
+Where $I_S$, $\eta$ and $V_T$ are characteristics of the diode, and in this case are: $I_S = 10^{-14}A$, $\eta = 1$ and $V_T = 25mV$. $v_{ED}$ is the voltage output of the envelope detector, R is the resistance in the voltage regulator and v is the voltage in the equivalent diode, which will be the voltage output of the voltage regulator and the entire circuit.
+Using Octave and Newton Raphson's iterative method, we can solve the non-linear equation for each moment of time, and then plot the result, giving:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=300pt, trim={0, 7cm, 0, 6cm}, clip]{ed+vr_th.pdf}
+	\caption{Voltage output of the Envelope Detector and Voltage Regulator compared to the input signal}
+	\label{fig:regulator}
+\end{figure}
+
+\subsection{Analyzing the output}
+\hspace{12pt} Converting an AC signal into a DC output is (unfortunately) not a perfect process. The resulting voltage is not a straight line at 12V, it still shows some oscillations and there is a slight deviation from the intended voltage. We can analyze this signal by defining the \textbf{ripple} $= Max(v_O(t)) - Min(v_O(t))$, by using the Octave script we can obtain these values (Figure \ref{fig:th_results}). The Merit parameter is defined as:
+\begin{equation}
+	Merit = \frac{1}{Cost \cdot(Deviation + Ripple + 10^{-6})}
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\scalebox{0.75}{
+		\input{output.tex}
+	}
+	\caption{Octave results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value}
+	\label{fig:th_results}
+\end{figure}
+
+We can then observe the result of these numbers by plotting the output of the circuit and shifting it down by 12V (Figure \ref{fig:th_vo}). The amplitude of the oscillations is what we are calling the ripple and the the fact that the maxima and minima of these oscillations aren't symmetrical values shows us the deviation.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=300pt, trim={0, 7cm, 0, 6cm}, clip]{vo_th.pdf}
+	\caption{Shifted output voltage}
+	\label{fig:th_vo}
+\end{figure}
+\newpage
+\newpage
+
