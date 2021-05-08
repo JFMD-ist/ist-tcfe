@@ -1,15 +1,14 @@
-\hspace{12pt} In order to fully simulate the circuit at hand, we represented the transformer as a pair of dependent sources: a Current Controlled Current Source (CCCS) attached to the AC input, and a Voltage Controlled Voltage Source (VCVS) connected to the secondary of the circuit. The constant multiple defining the outputs of these sources are as defined in section \ref{sec:theory}. It's important to note that for the entirety of the ngspice script, we used the software's default diode model.
+\hspace{12pt} In order to fully simulate the circuit at hand, we represented the transformer as a pair of dependent sources: a Current Controlled Current Source (CCCS) attached to the AC input, and a Voltage Controlled Voltage Source (VCVS) connected to the secondary of the circuit. The constant multiple defining the outputs of these sources are as defined in section \ref{sec:theory}. It's important to note that for the entirety of the ngspice script, we used the software's default diode model and that, since the theoretical analysis used a cos voltage source, we cannot start our Ngspice transient analysis at the t = 0.
 
 After performing a transient analysis over 10 periods of the input AC signal, we obtain the following results for the output voltage of the Envelope Detector and Voltage Regulator compared to the input voltage (Figure ~\ref{fig:ed_vr}).
 
 \begin{figure}[h]
 	\centering
-        \includegraphics[width=.7\textwidth, trim={0 0 0 8cm}, clip]{ed+vr_sim.pdf}
+        \includegraphics[width=.5\textwidth, trim={0 0 0 8cm}, clip]{ed+vr_sim.pdf}
         \caption{Envelope Detector and Voltage Regulator Outputs compared to input voltage}
         \label{fig:ed_vr}
 \end{figure}
-\pagebreak
-\vspace{12pt}
+
 We can analyze the Voltage Regulator output by defining the deviation of its mean from the intended 12V and the ripple of the oscillation (the amplitude of the oscillation), this way we obtain the values seen in Figure \ref{fig:sim_results}.
 
 \begin{figure}[h]

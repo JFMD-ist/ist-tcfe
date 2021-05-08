@@ -9,13 +9,14 @@ LODFIGS = $(patsubst %.odg,%.pdf,$(wildcard *.odg))
 all: $(FILE).pdf
 	evince $< &
 
-$(FILE).pdf: $(wildcard *.tex) $(LODFIGS) octave.log ngspice pspdf
+$(FILE).pdf: $(wildcard *.tex) $(LODFIGS) octave ngspice pspdf
 	pdflatex  $(FILE).tex
 	pdflatex  $(FILE).tex
 	pdflatex  $(FILE).tex
 	
-octave.log:
+octave:
 	octave ../mat/t3.m > octave.log
+	octave ../mat/t3_tweak.m > octave_tweak.log
 	
 pspdf: ngspice.log
 	ps2pdf converter.ps converter.pdf

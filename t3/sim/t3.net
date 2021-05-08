@@ -1,11 +1,11 @@
 * Title: Envelope Detector Circuit
 .options savecurrents
 .param N=(1/1.354)
-.param var1 = 200k
+.param var1 = 250k
 .param var2 = 100k
-.param var3 = 200u
+.param var3 = 250u
 *Voltage Source
-Vs 1 0 dc sin(0 230 50)
+Vs 1 0 dc sin(0 230 50 0 0 90.0)
 
 *Full-wave Rectifier
 D1 GND 2 Default
@@ -57,13 +57,13 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
-set var1 = 200k
+set var1 = 250k
 set var2 = 100k
-set var3 = 200u
+set var3 = 250u
 
 
 op
-tran 50u .2 0.02
+tran 50u .22 0.04
 hardcopy converter.ps v(1) v(4) 12
 hardcopy ed+vr_sim.ps v(VCC) v(4) v(1) 
 hardcopy vo_sim.ps {v(4)-12}

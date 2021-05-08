@@ -6,13 +6,13 @@ format long
 %%-------------------------------------------------------------------------
 %%Envelope Detector
 %%-------------------------------------------------------------------------
-nt = (1/1.354)
+nt = (1/1.366)
 R1 = 250e3;
 R2 = 100e3;
 C1 = 250e-6;
 v_amp = 230*nt
 t_off = (1/(100*pi))*atan(1/(100*pi*R1*C1))
-numb = 20
+numb = 5
 
 function y = v_o(t, t_off, v_amp)
 R1 = 100e3;
@@ -32,17 +32,6 @@ ed = [];
 for j = 1:1:size(t,2)
 ed = horzcat(ed, v_o(t(1, j), t_off, v_amp));
 endfor
-
-he = figure();
-plot(t, ed);
-hold on;
-plot(t, abs(v_amp*cos(100*pi*t)));
-grid on;
-xlabel("Time (ms)");
-ylabel("Voltage (V)");
-title("Envelope Detector Output");
-legend("v_{ED}(t)", "v_S(t)", "location", "northwestoutside");
-print(he, "ed.pdf");
 
 %%-------------------------------------------------------------------------
 %%Voltage Regulator
@@ -91,7 +80,7 @@ merit = 1/(cost*(ripple + abs(offset) + 1e-6))
 
 table_end = '\\ \hline';
 
-filename = "output.tex";
+filename = "tweak_output.tex";
 fid = fopen(filename, "w");
 fprintf(fid, "\\begin{tabular}{|c|c|}\n");
 fprintf(fid, "\\hline\n");
@@ -102,42 +91,3 @@ fprintf(fid, "Merit figure & %f %s\n", merit, table_end);
 fprintf(fid, "\\end{tabular}\n");
 fclose(fid);
 
-vr12 = [];
-for j=1:1:size(vr, 2)
-vr12 = horzcat(vr12, vr(1, j) - 12);
-endfor
-
-hf = figure();
-plot(t, ed);
-hold on;
-plot(t, 230*cos(100*pi*t));
-hold on;
-plot([0, 0.01*numb], [12, 12]);
-hold on;
-plot(t, vr)
-grid on;
-xlabel("Time (ms)");
-ylabel("Voltage (V)");
-title("Envelope Detector and Voltage Regulator Outputs");
-legend("v_{ED}(t)", "v_S(t)", "12V", "v_O(t)", "location", "northwestoutside");
-print(hf, "ed+vr_th.pdf");
-
-hg = figure();
-plot(t, vr12);
-grid on;
-xlabel("Time (ms)");
-ylabel("Voltage (V)");
-title("Voltage Regulator Output (offset by - 12V)");
-legend("v_o(t) - 12", "location", "northwestoutside");
-print(hg, "vo_th.pdf");
-
-hi = figure();
-plot(t, vr);
-hold on;
-plot(t, 230*cos(100*pi*t));
-grid on;
-xlabel("Time (ms)");
-ylabel("Voltage (V)");
-title("Input and Output Voltage");
-legend("v_O(t)", "v_S(t)","location", "northwestoutside");
-print(hi, "converter_th.pdf");

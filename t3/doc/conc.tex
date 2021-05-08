@@ -1,0 +1,46 @@
+\subsection{Envelope Detector and Voltage Regulator outputs}
+\hspace{12pt} We will begin our comparison by taikng a look at the various outputs of the different sections of the circuit (Figure \ref{fig:ed+vr_comp}).
+
+\begin{figure}[h]
+	\begin{minipage}{.45\textwidth}
+		\centering
+        	\includegraphics[width=.9\textwidth, trim={0, 7cm, 0, 6cm}, clip]{ed+vr_th.pdf}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics[width=.8\textwidth, trim={0, 0, 0, 8cm}, clip]{ed+vr_sim.pdf}
+	\end{minipage}
+	\vspace{-5pt}
+	\caption{Envelope Detector and Voltage Regulator outputs obtained by the Octave (left) and Ngspice (right) scripts}
+	\label{fig:ed+vr_comp}
+\end{figure}
+
+As we can see, the results of both the theoretical analysis and the simulation are nearly identical: the cossine of the input voltage, the (nearly) flat line at roughly 170V (the output of the envelope detector) and a (nearly) straight line at 12V (the output of the voltage regulator which is the output of the entire circuit). However there are some differences which we can only really see by taking a closer look at the "flat" 12V line.
+
+\subsection{Voltage Regulator output}
+\hspace{12pt} Firstly let's plot the shifted graph (Figure \ref{fig:vo_comp}), we can now see that although the simulated output oscillates almost around 0, the thoretical signal does not. This can also be seen by comparing the deviation values. 
+
+\begin{figure}[h]
+	\begin{minipage}{.4\textwidth}
+		\centering
+        	\includegraphics[width=.8\textwidth, trim={0, 7cm, 0, 6cm}, clip]{vo_th.pdf}
+	\end{minipage}
+	\begin{minipage}{.4\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth, trim={0, 0, 0, 8cm}, clip]{vo_sim.pdf}
+	\end{minipage}
+	\caption{Shifted Voltage Regulator output obtained by the Octave (left) and Ngspice (right) scripts}
+	\label{fig:vo_comp}
+\end{figure}
+
+\pagebreak
+The Ngspice script gives us a deviation of $1.42\cdot 10^{-5}V$ while the octave gives us $4.43 \cdot 10^{-3}V$. This difference is most likely due to differences in the diode models used in the scripts. We can, however, slightly tweak octave's N to try to decrease this error. Changing it from the $\frac{1}{1.354}$ used in the Ngspice script to $\frac{1}{1.366}$, we get the values given in Figure \ref{fig:tweak_out} and although the results still don't match up exactly, this correction compensates slightly for the different diode models.
+
+\begin{figure}[h]
+	\centering
+	\scalebox{1.2}{
+		\input{tweak_output.tex}
+	}
+	\caption{Tweaked Octave results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value}
+	\label{fig:tweak_out}
+\end{figure}

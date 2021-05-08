@@ -10,6 +10,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage{amsmath}
+\usepackage{needspace}
 
 \pagestyle{fancy}{
 \rhead{\includegraphics[width=30mm]{../other/logo_ist.png}}
@@ -58,12 +59,11 @@
 \label{sec:theory}
 \input{theory.tex}
 
-\pagebreak
-\pagebreak
+\clearpage
 \section{Simulation}
 \input{sim.tex}
 
 \pagebreak
 \section{Conclusion}
-%\input{comp.tex}
+\input{conc.tex}
 \end{document}
