@@ -1,11 +1,11 @@
-\hspace{12pt} In order to fully simulate the circuit at hand, we represented the transformer as a pair of dependent sources: a Current Controlled Current Source (CCCS) attached to the AC input, and a Voltage Controlled Voltage Source (VCVS) connected to the secondary of the circuit. The constant multiple defining the outputs of these sources are as defined in section \ref{sec:theory}. It's important to note that for the entirety of the ngspice script, we used the software's default diode model and that, since the theoretical analysis used a cos voltage source, we cannot start our Ngspice transient analysis at the t = 0.
+\hspace{12pt} In order to fully simulate the circuit at hand, we represented the transformer as a pair of dependent sources: a Current Controlled Current Source (CCCS) attached to the AC input, and a Voltage Controlled Voltage Source (VCVS) connected to the secondary of the circuit. The constant multiple defining the outputs of these sources are as defined in section \ref{sec:theory}. It's important to note that for the entirety of the Ngspice script, we used the software's default diode model and that, since the theoretical analysis used a cos voltage source, we cannot start our Ngspice transient analysis at the t = 0.
 
 After performing a transient analysis over 10 periods of the input AC signal, we obtain the following results for the output voltage of the Envelope Detector and Voltage Regulator compared to the input voltage (Figure ~\ref{fig:ed_vr}).
 
 \begin{figure}[h]
 	\centering
         \includegraphics[width=.5\textwidth, trim={0 0 0 8cm}, clip]{ed+vr_sim.pdf}
-        \caption{Envelope Detector and Voltage Regulator Outputs compared to input voltage}
+        \caption{Envelope Detector (v(VCC))and Voltage Regulator (v(4)) Outputs compared to input voltage (v(1))}
         \label{fig:ed_vr}
 \end{figure}
 
@@ -19,12 +19,12 @@ We can analyze the Voltage Regulator output by defining the deviation of its mea
 			\input{op_tab.tex}  		
   		\end{tabular}
 	}
-	\caption{Ngspice results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value}
+	\caption{Ngspice results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value, respectively}
 	\label{fig:sim_results}
 \end{figure}
 
 \pagebreak
-In order to better see the effect of the deviation and ripple, we can plot the output and shift it by -12V, we then obtain Figure \ref{fig:sim_vo}. As is possible to observe, the signal fluctuates between $-180 \mu V$ and $160 \mu V$ and since these values are not symmetric (although they are similar), this results in the deviation.
+In order to better see the effect of the deviation and ripple, we can plot the output and shift it by -12V, we then obtain Figure \ref{fig:sim_vo}. As is possible to observe, the signal fluctuates between $-110 \mu V$ and $140 \mu V$ and since these values are not symmetric (although they are similar), this results in the deviation.
 
 \begin{figure}[h]
 	\centering
@@ -38,7 +38,7 @@ It is interesting to now plot the input signal (230 AC voltage) and compare it t
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.45\textwidth, trim={0 2cm 0 8cm}, clip]{converter.pdf}
-	\caption{Plot of input AC signal VS output DC signal}
+	\caption{Plot of input AC signal (v(1)) VS output DC signal (v(4))}
 	\label{fig:sim_converter}
 \end{figure}
 \pagebreak

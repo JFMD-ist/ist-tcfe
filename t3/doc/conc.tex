@@ -1,5 +1,5 @@
 \subsection{Envelope Detector and Voltage Regulator outputs}
-\hspace{12pt} We will begin our comparison by taikng a look at the various outputs of the different sections of the circuit (Figure \ref{fig:ed+vr_comp}).
+\hspace{12pt} We will begin our comparison by taking a look at the various outputs of the different sections of the circuit (Figure \ref{fig:ed+vr_comp}).
 
 \begin{figure}[h]
 	\begin{minipage}{.45\textwidth}
@@ -34,13 +34,13 @@ As we can see, the results of both the theoretical analysis and the simulation a
 \end{figure}
 
 \pagebreak
-The Ngspice script gives us a deviation of $1.42\cdot 10^{-5}V$ while the octave gives us $4.43 \cdot 10^{-3}V$. This difference is most likely due to differences in the diode models used in the scripts. We can, however, slightly tweak octave's N to try to decrease this error. Changing it from the $\frac{1}{1.354}$ used in the Ngspice script to $\frac{1}{1.366}$, we get the values given in Figure \ref{fig:tweak_out} and although the results still don't match up exactly, this correction compensates slightly for the different diode models.
+The Ngspice script gives us a deviation of $1.42\cdot 10^{-5}V$ while the octave gives us $4.43 \cdot 10^{-3}V$. This difference is most likely due to differences in the diode models used in the scripts. We can, however, slightly tweak Octave's N to try to decrease this error. Changing it from the $\frac{1}{1.354}$ used in the Ngspice script to $\frac{1}{1.366}$, we get the values given in Figure \ref{fig:tweak_out} and although the results still don't match up exactly, this correction compensates greatly for the different diode models.
 
 \begin{figure}[h]
 	\centering
 	\scalebox{1.2}{
 		\input{tweak_output.tex}
 	}
-	\caption{Tweaked Octave results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value}
+	\caption{Tweaked Octave results for the mean deviation from 12V, ripple, the cost of the components, and corresponding merit value, respectively}
 	\label{fig:tweak_out}
 \end{figure}

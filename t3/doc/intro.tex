@@ -1,0 +1,25 @@
+\hspace{12pt} In this laboratorial session we were tasked to create an AC/DC converter circuit (whose basic layout is described in Figure \ref{fig:ac_dc}), this includes a transformer, a full-wave rectifier an envelope detector and a voltage regulator circuits. The specific arquitecture for these sub-circuits is described in Figure \ref{fig:circuit}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.5\textwidth, trim={0 4cm 0 4cm}, clip]{AC_DC.pdf}
+	\caption{AC/DC converter circuit layout}
+	\label{fig:ac_dc}
+\end{figure}
+ 
+ \begin{figure}[h]
+ 	\centering
+	\includegraphics[width=.5\textwidth, trim={0 4cm 0 4cm}, clip]{Circuit_diagram.pdf}
+	\caption{AC/DC converter circuit arquitecture specifications}
+	\label{fig:circuit}
+ \end{figure}
+ 
+For the theoretical analysis (section \ref{sec:theory}), we began with the envelope detector where we used Octave to calculate the instant at which the diode switched off and used it as a reference to plot the output together with the equations given in the lesson 14. The voltage regulator output required the use of KVL along with the Diode equation (given in the slides of lecture 11) to get a non-linear equation which we then solved using the Newton-Raphson method for each instant of the time interval considered.
+
+In the simulation section, we recreated the circuit layout in Ngspice, replacing the transformer with a model using 2 entangled dependent sources, and performed a transient analysis over 10 periods of the input signal, plotting the voltage output at the envelope detector and voltage regulator portions of the circuit.
+
+It is important to note that since an AC/DC converter cannot ever be perfect, there exist some slight imperfections in the output signal: oscillations persist though with a much smaller amplitude, and the signals do not oscillate perfectly around V = 12V. These imperfections (named ripple and deviation respectively) are used along with the cost of the components (1MU (Monetary Unit) per $k \Omega$ in the resistors, 1MU per $\mu F$ in the capacitor, and 0.1MU per diode) to obtain the merit figure (defined ahead in the theoretical analysis section). The Octave and Ngspice scripts are coded to calculate these values automatically.
+
+Finally, in section \ref{sec:conc}, we compared the plots of the results of the different sections and concluded that the models of the diodes used in the different scripts are most likely the cause of the disagreement between plots.
+
+\pagebreak
