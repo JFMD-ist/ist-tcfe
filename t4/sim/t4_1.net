@@ -9,16 +9,16 @@ Vin in 0 0 ac 1.0 sin(0 10m 1k)
 Rin in in2 100
 
 * input coupling capacitor
-Ci in2 base 1m
+Ci in2 base 100u
 
 * bias circuit
-R1 vcc base 80k
-R2 base 0 20k
+R1 vcc base 149k
+R2 base 0 10k
 
 * gain stage
 Q1 coll base emit BC547A
-Rc vcc coll 1k
-Re emit 0 100
+Rc vcc coll 8.05k
+Re emit 0 50
 
 * bypass capacitor
 Cb emit 0 1m
@@ -38,31 +38,56 @@ RL out 0 8
 .end
 
 .control
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
 
 print all
 
 * time analysis
 tran 1e-5 1e-2
-plot v(coll)
+*plot v(coll)
 hardcopy vo1.ps vdb(coll)
+hardcopy vout.ps v(out) 
 
 
 * frequency analysis
 ac dec 10 10 100MEG
-plot vdb(coll)
-plot vp(coll)
+*plot vdb(coll)
+*plot vp(coll)
 hardcopy vo1f.ps vdb(coll)
 
 
 
-plot vdb(out)
-plot vp(out)
-hardcopy vo2f.ps vdb(coll)
+*plot vdb(out)
+*plot vp(out)
+let cutoff = vecmax(vdb(out))-3
+meas ac f1 WHEN vdb(out)=cutoff RISE=1
+meas ac f2 WHEN vdb(out)=cutoff CROSS=LAST
+let bandwidth = f2-f1
+let gain_low = abs(v(out)[6]/v(in)[6])
+let gain_band = abs(v(out)[40]/v(in)[40])
+let gain_high = abs(v(out)[46]/v(in)[46])
+let cost = 1268.308
+let m = (bandwidth*gain_band)/(f1*cost)
+print bandwidth
+print gain_low
+print gain_band
+print gain_high
+print bandwidth*gain_band
+print m
+hardcopy vo2f.ps vdb(out) cutoff
 
 *input impedance in kohm
 print v(in2)[40]/(v(in)[40]-v(in2)[40])/100*1000
 
-*need a different setup to measure output impedance
+*output impedance in kohm
+
 
 .endc 
 
