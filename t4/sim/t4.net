@@ -32,7 +32,8 @@ Rout emit2 vcc 100
 Co emit2 out 1u
 
 * load
-RL out 0 8
+Vout out out2 0
+RL out2 0 8
 
 .op
 .end
@@ -46,6 +47,7 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
+set units=degrees
 
 print all
 
@@ -75,19 +77,26 @@ let gain_band = abs(v(out)[40]/v(in)[40])
 let gain_high = abs(v(out)[46]/v(in)[46])
 let cost = 1268.308
 let m = (bandwidth*gain_band)/(f1*cost)
+hardcopy vo2f_m.ps vdb(out) cutoff
+hardcopy vo2f_ph.ps vp(out)
+hardcopy tf.ps {vdb(out)-vdb(in)}
+
+echo  "op_TAB"
 print bandwidth
 print gain_low
 print gain_band
 print gain_high
 print bandwidth*gain_band
 print m
-hardcopy vo2f.ps vdb(out) cutoff
 
 *input impedance in kohm
-print v(in2)[40]/(v(in)[40]-v(in2)[40])/100*1000
+let input_impedance = 100*v(in)[40]/(v(in)[40]-v(in2)[40])/1000
+print input_impedance
 
 *output impedance in kohm
-
+let output_impedance = v(out)[40]/i(vout)[40]
+print output_impedance
+echo  "op_END"
 
 .endc 
 
