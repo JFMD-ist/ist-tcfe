@@ -26,7 +26,7 @@ Cb emit 0 1m
 
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+Rout emit2 vcc 360
 
 * output coupling capacitor
 Co emit2 out 1u
@@ -75,7 +75,7 @@ let bandwidth = f2-f1
 let gain_low = abs(v(out)[6]/v(in)[6])
 let gain_band = abs(v(out)[40]/v(in)[40])
 let gain_high = abs(v(out)[46]/v(in)[46])
-let cost = 1268.308
+let cost = 1268.568
 let m = (bandwidth*gain_band)/(f1*cost)
 hardcopy vo2f_m.ps vdb(out) cutoff
 hardcopy vo2f_ph.ps vp(out)

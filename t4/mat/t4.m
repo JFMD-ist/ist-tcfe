@@ -59,7 +59,7 @@ ZO1 = 1/(1/ZX+1/RC1)
 %Constants and circuit specs
 BFP = 227.3;
 VAFP = 37.2;
-RE2 = 100;
+RE2 = 360;
 VEBON = 0.7;
 
 %OP analysis
@@ -158,7 +158,7 @@ endfor
 
 bandwidth = cf(1, 2) - cf(1, 1)
 lower_cutoff = cf(1, 1)
-merit = bandwidth*abs(t_max)/(1268.308*lower_cutoff)
+merit = bandwidth*abs(t_max)/(1268.568*lower_cutoff)
 
 hf = figure();
 semilogx(f, tf_mag);
