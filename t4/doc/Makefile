@@ -23,6 +23,7 @@ pspdf: ngspice.log
 	ps2pdf vo2f_m.ps vo2f_m.pdf
 	ps2pdf vo2f_ph.ps vo2f_ph.pdf
 	ps2pdf vout.ps vout.pdf
+	ps2pdf tf.ps tf.pdf
 
 ngspice: ngspice.log
 	$(eval NGSFIGS=$(shell grep _FIG $< | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
@@ -42,6 +43,6 @@ ngspice.log: ../sim/t4.net
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
-	@rm -rf *_tab.tex octave-workspace *.eps *output.tex
+	@rm -rf *_tab.tex octave-workspace *.eps *output.tex *_theory.tex *theory_sec2.tex
 
 .PHONY: all clean ngspice

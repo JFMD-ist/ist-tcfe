@@ -1,0 +1,20 @@
+\hspace{12pt} We began our simulation analysis with the ngspice script provided by the professor, performing an extensive study in which we slightly tweaked the values of the resistors and capacitors of the circuit in order to:
+\begin{enumerate}
+	\item{Make sure the OP voltage across the Base+Emitter of the transistors is close to 0.7V;}
+	\item{Get the OP voltage across the collector and GND of the NPN transistor to be half of the 12V supply (this ensures that the output signal does not get cutoff either by the +12V which would result in a flat top to the sine wave, or by the 0V GND which would flatline the bottom of the output signal);}
+	\item{Increase the bandwidth;}
+	\item{Increase the gain as much as possible without creating an excessive amount of noise which would disrupt the output signal and warp it.}
+\end{enumerate}
+
+By running the ngspice script, we obtain the following results:
+
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\input{op_tab.tex}
+	\end{tabular}
+	\caption{Simulation results}
+\end{figure}
+
+

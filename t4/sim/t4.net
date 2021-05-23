@@ -9,19 +9,19 @@ Vin in 0 0 ac 1.0 sin(0 10m 1k)
 Rin in in2 100
 
 * input coupling capacitor
-Ci in2 base 100u
+Ci in2 base 5u
 
 * bias circuit
-R1 vcc base 149k
+R1 vcc base 132k
 R2 base 0 10k
 
 * gain stage
 Q1 coll base emit BC547A
-Rc vcc coll 8.05k
+Rc vcc coll 3.4k
 Re emit 0 50
 
 * bypass capacitor
-Cb emit 0 1m
+Cb emit 0 100u
 
 
 * output stage
@@ -50,6 +50,9 @@ set color6=rgb:4/0/0
 set units=degrees
 
 print all
+echo "ep_TAB"
+print all
+echo "ep END"
 
 * time analysis
 tran 1e-5 1e-2
@@ -72,30 +75,30 @@ let cutoff = vecmax(vdb(out))-3
 meas ac f1 WHEN vdb(out)=cutoff RISE=1
 meas ac f2 WHEN vdb(out)=cutoff CROSS=LAST
 let bandwidth = f2-f1
-let gain_low = abs(v(out)[6]/v(in)[6])
-let gain_band = abs(v(out)[40]/v(in)[40])
-let gain_high = abs(v(out)[46]/v(in)[46])
-let cost = 1268.568
-let m = (bandwidth*gain_band)/(f1*cost)
+let gainlow = abs(v(out)[6]/v(in)[6])
+let gainband = abs(v(out)[40]/v(in)[40])
+let gainhigh = abs(v(out)[46]/v(in)[46])
+let cost = 251.918
+let merit = (bandwidth*gainband)/(f1*cost)
 hardcopy vo2f_m.ps vdb(out) cutoff
 hardcopy vo2f_ph.ps vp(out)
 hardcopy tf.ps {vdb(out)-vdb(in)}
 
-echo  "op_TAB"
-print bandwidth
-print gain_low
-print gain_band
-print gain_high
-print bandwidth*gain_band
-print m
-
 *input impedance in kohm
-let input_impedance = 100*v(in)[40]/(v(in)[40]-v(in2)[40])/1000
-print input_impedance
+let inputimpedance = 100*v(in)[40]/(v(in)[40]-v(in2)[40])/1000
 
 *output impedance in kohm
-let output_impedance = v(out)[40]/i(vout)[40]
-print output_impedance
+let outputimpedance = v(out)[40]/i(vout)[40]
+
+echo  "op_TAB"
+print inputimpedance
+print outputimpedance
+print bandwidth
+print gainlow
+print gainband
+print gainhigh
+print merit
+
 echo  "op_END"
 
 .endc 
