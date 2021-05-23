@@ -106,6 +106,8 @@ Using Octave to calculate these equations, we get the following values:
 
 \vspace{15pt}
 
+\subsection{Frequency Response}
+
 In this final section of the theoretical analysis we will compute the frequency response of the circuit. The results were joined together in one equation:
 \vspace{15pt}
 
@@ -114,17 +116,38 @@ In this final section of the theoretical analysis we will compute the frequency 
     	\frac{V_o(f)}{V_i(f)}=\frac{1}{1+2\pi fjC_1R_S}\frac{-R_C(-g_{m1}r_{o1}r_{\pi 1}+Z_{eq})}{Z_{eq}(-g_{m1}r_{o1}r_{\pi 1}+Z_{eq})+(R_C+r_{o1}+Z_{eq})(-R_B-r_{\pi 1}-Z_{eq})}\frac{g_{m2}}{g_{m2}+g_{o2}+g_{\pi 2}+g_{E2}}\frac{2\pi fjC_{out}R_l}{1+2\pi fjC_{out}R_l} \nonumber
 \end{gather}
 \normalsize
+
+\begin{figure}[h]
+	\centering
+	\input{theory_results.tex}
+	\caption{Output results for the frequency analysis}
+	\label{fig:output_th}
+\end{figure}
+
 \pagebreak
 
-Finally we can use Octave to plot the previous equation using a logarithmic scale:
+We can then use Octave to plot the previous equation using a logarithmic scale:
 
 \begin{figure}[h!]
 	\centering
-	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_mag.pdf}}
-	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_ph.pdf}}
+	\subfigure[]{\includegraphics[width=0.45\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_mag.pdf}}
+	\subfigure[]{\includegraphics[width=0.45\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_ph.pdf}}
 	\caption{(a) Magnitude plot (b) Phase plot of the frequency response output}
 	\label{fig:freq_th}
 \end{figure}
 
 We can define the cutoff frequencies as the ones at which the magnitude of the gain of the circuit is 3dB below the peak of the graph (which happens around 3kHz), in figure \ref{fig:freq_th} we can see the cutoff line and the 2 frequencies at which it intersects the graph, these are our values for the cutoff frequencies. The \textbf{bandwidth} of the circuit is the difference between the high and low cutoff frequencies (this can be thought of as the range of frequencies under which the circuit will amplify the input signal).
+
+\subsection{Output signal}
+
+\hspace{12pt} Lastly, we can take a look at the output of the amplifier circuit (Figure \ref{fig:output_th}):
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_out.pdf}
+	\caption{Octave results for the output signal}
+	\label{fig:output_th}
+\end{figure}
+
+It is important to note that the theoretical output cannot represent any signs of noise, only being able to give us the pure sinusoidal result and is thus only useful if the simulation output does not show a lot of noise.
 

@@ -11,8 +11,8 @@ VT=0.0258649170201;
 BFN=178.7;
 VAFN=69.7;
 RE1=50;
-RC1=8.05e3;
-RB1=149e3;
+RC1=3.4e3;
+RB1=132e3;
 RB2=10e3;
 VBEON=0.7;
 VCC=12;
@@ -88,9 +88,9 @@ filename = "os_theory.tex";
 fid = fopen(filename, "w");
 fprintf(fid, "\\begin{tabular}{|c|c|}\n");
 fprintf(fid, "\\hline\n");
-fprintf(fid, "$I_{E2}$  & %f %s\n", IB1, table_end);
-fprintf(fid, "$I_{C2}$  & %f %s\n", IC1, table_end);
-fprintf(fid, "$V_{O2}$  & %f %s\n", VO1, table_end);
+fprintf(fid, "$I_{E2}$  & %f %s\n", IE2, table_end);
+fprintf(fid, "$I_{C2}$  & %f %s\n", IC2, table_end);
+fprintf(fid, "$V_{O2}$  & %f %s\n", VO2, table_end);
 fprintf(fid, "\\end{tabular}\n");
 fclose(fid);
 
@@ -170,7 +170,17 @@ endfor
 bandwidth = cf(1, 2) - cf(1, 1)
 lower_cutoff = cf(1, 1)
 gain = t_max
-merit = bandwidth*abs(t_max)/(273.568*lower_cutoff)
+merit = bandwidth*abs(t_max)/(251.918*lower_cutoff)
+
+filename = "theory_results.tex";
+fid = fopen(filename, "w");
+fprintf(fid, "\\begin{tabular}{|c|c|}\n");
+fprintf(fid, "\\hline\n");
+fprintf(fid, "Bandwidth & %f %s\n", bandwidth, table_end);
+fprintf(fid, "Lower cutoff frequency  & %f %s\n", lower_cutoff, table_end);
+fprintf(fid, "Merit  & %f %s\n", merit, table_end);
+fprintf(fid, "\\end{tabular}\n");
+fclose(fid);
 
 hf = figure();
 semilogx(f, tf_mag);

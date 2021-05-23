@@ -1,0 +1,33 @@
+\hspace{12pt} In this laboratorial session we were tasked to create a Class A Amplifier circuit (whose basic layout is described in Figure \ref{fig:amp}). We can divide the entire circuit into 2 different stages:
+\vspace{-5pt}
+\begin{enumerate}
+	\item{\textbf{Gain Stage} - which takes the input signal and uses it alongside an NPN transistor and a supply voltage source of 12V to amplify the input}
+	\vspace{-5pt}
+	\item{\textbf{Output Stage} - which takes the amplified signal of the previous stage and has a lower output impedance such that it can be connected to the load without any complications}
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.5\textwidth, trim={0 4cm 0 4cm}, clip]{Amplifier_circuit.pdf}
+	\caption{Class A amplifier circuit layout}
+	\label{fig:amp}
+\end{figure}
+\vspace{-10pt}
+\begin{figure}[h]
+ 	\centering
+	\includegraphics[width=.5\textwidth, trim={0 0 0 1cm}, clip]{Circuit_diagram.pdf}
+	\caption{Class A amplifier circuit arquitecture specifications}
+	\label{fig:circuit}
+\end{figure}
+ 
+In the theoretical analysis (section \ref{sec:theory}), we first performed an Operating Point analysis and calculated the different currents and voltages involved in two stages of the amplifier. We then computed the gain by using the mesh method and the input and output impedances of the two stages. Lastly we used the mesh method alongside the incremental model of the NPN and PNP transistors to compute the total gain as a function of frequency.
+
+In the simulation section, we started with the ngspice script provided by the professor and tweaked the values of several components in order to achieve 4 goals we estabilished. The next step was to perform a frequency sweep and plot the gain output graph, which we then used to calculated the cutoff frequencies of the circuit and thusly, the bandwidth, together with the total cost of the components we computed the \textbf{merit figure} as 
+
+\begin{equation}
+	Merit = \frac{bandwidth \cdot gain}{(lower cutoff freq) \cdot (total cost)}
+\end{equation} 
+
+Finally, in section \ref{sec:conc}, we compared the theoretical and simulation results from the different sections.
+
+\pagebreak

@@ -1,0 +1,79 @@
+\subsection{OP analysis}
+\hspace{12pt} We begin by comparing the operating point analysis results from the octave and ngspice scripts.
+
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{.4\textwidth}
+		\centering
+		\large
+		\begin{tabular}{|c|c|}
+		\hline
+		\input{op2_tab.tex}
+		\end{tabular}
+		\normalsize
+	\end{minipage}
+	\medskip
+	\begin{minipage}{.4\textwidth}
+		\centering
+		\input{gs_theory.tex}
+		\Large
+       	\input{os_theory.tex}
+       	\normalsize
+	\end{minipage}
+	 \label{fig:op_comp}
+	 \caption{OP results(a) Ngspice (b) Octave script}
+\end{figure}
+
+We can see that there are slight differences between the results of the two methods, this could likely be due to the theoretical OP analysis only using the FAR (Forward Active Region) of the transistors in order to calculate these values.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		$I_{B1}$ & 23.29 \\ \hline
+		$I_{C1}$ & 29.43 \\ \hline
+		$V_{O1}$ & -19.76 \\ \hline
+		$I_{E1}$ & 29.39 \\ \hline
+		$V_{E1}$ & 29.39 \\ \hline
+		$V_{CE}$ & -20.25 \\ \hline
+		$I_{E2}$ & 28.11 \\ \hline
+		$I_{C2}$ & 28.06 \\ \hline
+		$V_{O2}$ & -14.71 \\ \hline
+	\end{tabular}
+	\caption{Percentage error in OP results of the different methods}
+	\label{fig:op_err}
+\end{figure}
+
+\subsection{Frequency Response}
+\hspace{12pt} Looking at the magnitude (Figure \ref{fig:mag_comp}) and phase (Figure \ref{fig:ph_comp}) plots of the resuling gain we can see a great difference in the cutoff frequencies, this is likely due to the incremental model of the transistors only being an approximation and the fact that it does not account for reverse bias.
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\subfigure[]{\includegraphics[width=0.4\textwidth, trim={0, 2cm, 0, 8cm}, clip]{vo2f_m.pdf}}
+	\subfigure[]{\includegraphics[width=0.5\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_mag.pdf}}
+	\caption{(a) Ngspice and (b) Octave magnitude plots of the frequency response output}
+	\label{fig:mag_comp}
+\end{figure}
+\vspace{20pt}
+\begin{figure}[h]
+	\centering
+	\subfigure[]{\includegraphics[width=0.4\textwidth, trim={0, 2cm, 0, 8cm}, clip]{vo2f_ph.pdf}}
+	\subfigure[]{\includegraphics[width=0.5\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_ph.pdf}}
+	\caption{(a) Ngspice and (b) Octave phase plots of the frequency response output}
+	\label{fig:ph_comp}
+\end{figure}
+
+\pagebreak
+\subsection{Output Signal}
+\hspace{12pt} Taking a look at the output signals created by the circuit we can see that despite the significant difference in gain (as seen by the lower amplitude of the octave signal), both are very close to the desired sinusoidal wave.
+
+\begin{figure}[h]
+	\centering
+	\subfigure[]{\includegraphics[width=0.4\textwidth, trim={0, 2cm, 0, 8cm}, clip]{vout.pdf}}
+	\subfigure[]{\includegraphics[width=0.5\textwidth, trim={0, 6cm, 0, 6cm}, clip]{theory_out.pdf}}
+	\caption{(a) Ngspice and (b) Octave plots of the output signal of the amplifier circuit}
+	\label{fig:out_comp}
+\end{figure}
+

@@ -6,15 +6,64 @@
 	\item{Increase the gain as much as possible without creating an excessive amount of noise which would disrupt the output signal and warp it.}
 \end{enumerate}
 
-By running the ngspice script, we obtain the following results:
+\subsection{Operating Point analysis}
+
+By performing an OP analysis using the ngspice script, we obtain the following results:
 
 \begin{figure}[h]
 	\centering
-	\begin{tabular}{|c|c|}
-		\hline
-		\input{op_tab.tex}
-	\end{tabular}
-	\caption{Simulation results}
+	\begin{minipage}[t]{.45\textwidth}
+		\centering
+			\begin{tabular}{|c|c|}
+			\hline
+			\input{op1_tab.tex}
+		\end{tabular}
+	\end{minipage}
+	\begin{minipage}[t]{.45\textwidth}
+		\centering
+			\begin{tabular}{|c|c|}
+			\hline
+			\input{op2_tab.tex}
+		\end{tabular}
+	\end{minipage}
+	\caption{Simulation operating point analysis results}
+	\label{fig:op_sim}
 \end{figure}
 
+As it's possible to see, $V_{base} - V_{emit}$ and $V_{emit2} - V_{base2}$ are close to the 0.7V we desire (0.6611V and 0.7165V, respectively). Likewise, the result for $V_{coll}$ is very close to the intended 6V.
 
+\subsection{Gain, Impedances, and Frequency Response}
+\hspace{12pt} In order to analyze the output signal it is important to look at the input and output impedances of the circuit, these can be computed by calculating the ratio $\frac{V}{I}$ at the input (voltage source $v_{in}$) and output (load resistor).
+
+We can then do a frequency response analysis of the circuit, analyzing the graph of $\frac{v_{out}}{v_{in}}$ (Figure \ref{fig:gain_sim}) we can see the cutoff line (defined as 3dB below the maximum value) and its 2 intersection points with the graph, the distance between these is the bandwidth of the circuit.
+
+\begin{figure}[h]
+	\centering
+	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0 2cm 0 8cm}, clip]{vo2f_m.pdf}}
+	\subfigure[]{\includegraphics[width=0.49\textwidth, trim={0 2cm 0 8cm}, clip]{vo2f_ph.pdf}}
+	\caption{(a) Magnitude plot (b) Phase plot of the frequency response output}
+	\label{fig:gain_sim}
+\end{figure}
+
+We then obtain the following results:
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	\input{out_tab.tex}
+	\end{tabular}
+\end{figure}
+
+\vspace{30pt}
+
+\subsection{Output Signal}
+\hspace{12pt} Let's finally look at the output signal of our amplifier circuit (Figure \ref{fig:output_sim}). It is possible to see a slight difference in the fist few milisseconds, this is due to the initial transitory state. However, we can clearly see the sinusoidal function which we were hoping to see! This means there is little to no noise in the output signal, this is a really important trait as we do not want an amplifier to distort the signal too much.
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth, trim={0 2cm 0 8cm}, clip]{vout.pdf}
+	\caption{Output signal}
+	\label{fig:output_sim}
+\end{figure}
+\pagebreak

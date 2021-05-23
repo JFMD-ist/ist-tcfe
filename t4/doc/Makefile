@@ -43,6 +43,6 @@ ngspice.log: ../sim/t4.net
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
-	@rm -rf *_tab.tex octave-workspace *.eps *output.tex *_theory.tex *theory_sec2.tex
+	@rm -rf *_tab.tex octave-workspace *.eps *output.tex *_theory.tex *theory_sec2.tex *theory_results.tex
 
 .PHONY: all clean ngspice

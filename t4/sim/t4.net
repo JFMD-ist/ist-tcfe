@@ -25,7 +25,9 @@ Cb emit 0 100u
 
 
 * output stage
-Q2 0 coll emit2 BC557A
+Vbase coll base2 0
+Q2 coll2 base2 emit2 BC557A
+Vcoll coll2 0 0
 Rout emit2 vcc 360
 
 * output coupling capacitor
@@ -49,10 +51,33 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 set units=degrees
 
+op
+echo "op1_TAB"
 print all
-echo "ep_TAB"
+echo "op1_END"
+
+echo  "op2_TAB"
+let ib1 = (v(vcc)-v(base))/132000 + (v(in)-v(in2))/100 - v(base)/10000
+let ic1 = (v(vcc)-v(coll))/3400 - i(Vbase)
+let vo1 = v(vcc)-3400*ic1
+let ie1 = v(emit)/50
+let ve1 = 50*ie1
+let vce = vo1 - ve1
+let ie2 = (v(vcc)-v(emit2))/360 + v(out)/8
+let ic2 = i(Vcoll)
+let vo2 = 12 - 360*ie2
+
+print ib1
+print ic1
+print vo1
+print ie1
+print ve1
+print vce
+print ie2
+print ic2
+print vo2
+echo  "op2_END"
 print all
-echo "ep END"
 
 * time analysis
 tran 1e-5 1e-2
@@ -66,8 +91,6 @@ ac dec 10 10 100MEG
 *plot vdb(coll)
 *plot vp(coll)
 hardcopy vo1f.ps vdb(coll)
-
-
 
 *plot vdb(out)
 *plot vp(out)
@@ -90,7 +113,7 @@ let inputimpedance = 100*v(in)[40]/(v(in)[40]-v(in2)[40])/1000
 *output impedance in kohm
 let outputimpedance = v(out)[40]/i(vout)[40]
 
-echo  "op_TAB"
+echo  "out_TAB"
 print inputimpedance
 print outputimpedance
 print bandwidth
@@ -99,7 +122,8 @@ print gainband
 print gainhigh
 print merit
 
-echo  "op_END"
+echo  "out_END"
+
 
 .endc 
 
