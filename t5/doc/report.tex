@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[lmargin=2cm, tmargin=3cm, rmargin=2cm, bmargin=2cm, headheight=5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{needspace}
+
+
+\pagestyle{fancy}{
+\rhead{\includegraphics[width=30mm]{../other/logo_ist.png}}
+\lhead{TCFE lab report}
+}
+
+
+\begin{document}
+\thispagestyle{empty}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{../../figlib/IST_A_CMYK_POS.pdf}
+\end{figure}
+
+\begin{center}
+	\huge{Circuit Theory and Electronic Fundamentals}
+	
+	\huge{Lab Report - T5}
+	
+	\vspace{30pt}
+	
+	\large{Professor: José Sousa}
+	
+	\vspace{20pt}
+	
+	\large{95801 - João Domingos}
+	
+	\large{96382 - Francisco Cadavez}
+	
+	\large{97087 - Miguel Fernandes}
+	
+	\vspace{20pt}
+	
+	\large{June $2^{nd}$ 2021}
+\end{center}
+
+\pagebreak
+\tableofcontents
+
+\pagebreak
+\section{Introduction}
+\input{intro.tex}
+
+\pagebreak
+\section{Theoretical Analysis}
+\label{sec:theory}
+\input{theory.tex}
+
+\clearpage
+\section{Simulation}
+\input{sim.tex}
+
+\pagebreak
+\section{Conclusion}
+\label{sec:conc}
+\input{conc.tex}
+\end{document}

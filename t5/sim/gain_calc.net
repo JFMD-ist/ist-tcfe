@@ -51,20 +51,35 @@
 
 Vcc vcc 0 5.0
 Vee vee 0 -5.0
-Vin in 0 0 ac 1.0 sin(0 10m 1k)
+Vin check 0 0 ac 1.0 sin(0 10m 1k)
+Vcheck check in 0 
 
 X1 0 inv_in vcc vee out uA741
 
-R1 in inv_in 1000
-R2 inv_in out 10000
+*Z1
+R1 in inv_in1 248.47
+C1 inv_in1 inv_in 2.167u
+
+*Z2
+R4 inv_in out 10000
+vout out out1 0
 
 * load
-RL out 0 8
+RL out1 0 8
 
 .op
 .end
 
 .control
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+set units=degrees
 
 print all
 
@@ -78,12 +93,29 @@ hardcopy vo1.ps vdb(out)
 ac dec 10 10 100MEG
 plot vdb(out)
 plot vp(out)
-hardcopy vo1f.ps vdb(out)
+
+let cutoff = vecmax(vdb(out)) - 3
+meas ac f1 WHEN vdb(out)=cutoff RISE=1
+meas ac f2 WHEN vdb(out)=cutoff CROSS=LAST
+let central_freq = sqrt(f1*f2)
+let gain = abs(v(out)[20]/v(in)[20])
+print central_freq
+print gain
+let freq_dev = abs(central_freq - 1000)
+let gain_dev = abs(gain - 40)
+print freq_dev
+print gain_dev
+let cost = 15000.008
+let merit = 1/(cost*gain_dev*freq_dev)
+print merit
+
+hardcopy vo1f.ps vdb(out) cutoff
 
 *input impedance in kohm
-print v(in)[40]/R1[i]/1000
+print v(in)[20]/i(Vcheck)[20]/1000
 
-*need a different setup to measure output impedance
+*output impedance in kohm
+print v(out)[20]/i(vout)[20]/1000
 
 .endc 
 
