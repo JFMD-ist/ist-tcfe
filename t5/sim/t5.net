@@ -57,10 +57,10 @@ Vcheck check in 0
 X1 0 inv_in vcc vee out uA741
 
 *Z1
-R1 in inv_in1 745.39
-C1 inv_in1 inv_in 722.3n
+R1 in inv_in1 2980.39215686
+C1 inv_in1 inv_in 180.327868852n
 *Z2
-R4 inv_in out 30k
+R2 inv_in out 120k
 vout out out1 0
 
 * load
@@ -104,11 +104,12 @@ let freq_dev = abs(central_freq - 1000)
 let gain_dev = abs(gain - 40)
 print freq_dev
 print gain_dev
-let cost = 31.47569
+let cost = 13322.7920387+324.228
 let merit = 1/(cost*gain_dev*freq_dev)
 print merit
 
-hardcopy vo1f.ps vdb(out) cutoff
+hardcopy vout_mag.ps vdb(out) cutoff
+hardcopy vout_ph.ps vp(out)
 hardcopy gain.ps abs(v(out)/v(in)) cutoff
 
 *input impedance in kohm

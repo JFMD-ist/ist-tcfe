@@ -10,8 +10,9 @@ format long
 Ct = input("Ct (in nF) = ");
 nC1 = input("Number of 220n capacitors = ");
 nC2 = input("Number of 1u capacitors = ");
+cost = (3-nC1)*0.22+(3-nC2)*1
 err = 1000000000;
-tries = 10000;
+tries = 20000;
 
 while(tries>=0)
 	tries -= 1;
@@ -58,10 +59,16 @@ while(tries>=0)
 		Cb = C;
 		b = cn1;
 		c = cn2;
+		nt = n;
 	endif
 endwhile
 
-disp(Cb)   %Cb is the best aproximation to the value of the capacitor
+disp(Cb)   %Cb is the best approximation to the value of the capacitor
 disp(b)    %b c and d are the capacitor choices for each of the branches (a column of 1 2 means we have 1 220nF and 2 1uF capacitors in parallel in that branch)
 disp(c)
 
+for i=1:1:nt
+	if(b(i)+c(i)>0)
+		cost += b(i)*0.22+c(i)*1
+	endif
+endfor

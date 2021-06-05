@@ -11,8 +11,9 @@ Rt = input("Rt (in ohms) = ");
 nR1 = input("Number of 1k resistors = ");
 nR2 = input("Number of 10k resistors = ");
 nR3 = input("Number of 100k resistors = ");
+cost = (3-nR1)*1+(3-nR2)*10+(3-nR3)*100;
 err = 1000000000;
-tries = 10000;
+tries = 20000;
 
 
 while(tries>=0)
@@ -63,6 +64,7 @@ while(tries>=0)
 		b = rn1;
 		c = rn2;
 		d = rn3;
+		nt = n;
 	endif
 endwhile
 
@@ -70,4 +72,12 @@ disp(Rb)   %Rb is the best aproximation to the value of the resistance
 disp(b)    %b c and d are the resistor choices for each of the branches (a column of 1 2 1 means we have 1 1k, 2 10k and 1 100k ohm resistors in parallel in that branch)
 disp(c)
 disp(d)
+
+for i=1:1:nt
+	if(b(i)+c(i)+d(i)>0)
+		cost += b(i)*1+c(i)*10+d(i)*100;
+	endif
+endfor
+
+cost
 
