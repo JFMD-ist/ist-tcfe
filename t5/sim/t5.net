@@ -84,8 +84,13 @@ print all
 
 * time analysis
 tran 1e-5 1e-2
+<<<<<<< HEAD:t5/sim/t5.net
 *plot v(out)
 hardcopy vo1.ps vdb(out)
+=======
+plot v(out)
+hardcopy vo1.ps v(out)
+>>>>>>> 31f3d34ee65ee29d194f0b14957a4dc922b4092f:t5/t5.net
 
 
 * frequency analysis
@@ -113,7 +118,11 @@ hardcopy vout_ph.ps vp(out)
 hardcopy gain.ps abs(v(out)/v(in)) cutoff
 
 *input impedance in kohm
+<<<<<<< HEAD:t5/sim/t5.net
 print v(in)[20]/i(Vcheck)[20]/1000
+=======
+*print v(in)[40]/R1[i]/1000
+>>>>>>> 31f3d34ee65ee29d194f0b14957a4dc922b4092f:t5/t5.net
 
 *output impedance in kohm
 print v(out)[20]/i(vout)[20]/1000
