@@ -7,14 +7,16 @@ syms w
 %Incremental Model Specs
 
 Vin = 10e-3;
-Zin = 10e6;
-Zout = 10;
-Av = 1e4;
+Zin = 5e6;
+Zout = 50;
+Av = 1e6;
 
-R1 = 300;
-C1 = 2220e-9;
+R1 = 30e3;
+R2 = 1e3;
+R3 = 100e3;
+R4 = 2e3;
+C1 = 2440e-9;
 Zc1 = 1/(C1*i*w);
-R2 = 50e3;
 C2 = 220e-9;
 Zc2 = 1/(C2*i*w);
 
@@ -22,7 +24,7 @@ Zc2 = 1/(C2*i*w);
 %Mesh Analysis
 %-------------------------------------------------------------------------
 
-M = [[Zc1+R1, -R1, 0, 0];[-R1, R1+Zin, Zin, 0];[0, Zin+Av*Zin, Zin+Av*Zin+Zout+R2, Zout];[0, Av*Zin, Av*Zin+Zout, Zout+Zc2]];
+M = [[Zc1+R1, R1, 0, 0];[R1, R1+R2+Zin, Zin, 0];[0, Zin+Av*Zin, Zin+R3+Av*Zin+Zout, -Zout];[0, -Av*Zin, -Av*Zin-Zout, Zout+R4+Zc2]];
 
 B = [Vin; 0; 0; 0];
 
@@ -69,7 +71,7 @@ endfor
 
 cf = [];
 for j=1:1:size(gain_mag, 2)
-	if abs(gain_mag(1, j) - cutoff) < 0.5
+	if abs(gain_mag(1, j) - cutoff) < 0.8
 		cf = horzcat(cf, f(1, j));
 	endif
 endfor
@@ -78,8 +80,8 @@ f_low = cf(1, 1)
 f_high = cf(1, end)
 f_central = sqrt(f_low*f_high)
 freq_dev = abs(f_central - 1000)
-gain_dev = abs(gain - 40)
-cost = 13322.9920387+324.228
+gain_dev = abs(gain - 100)
+cost = 13323.2920387 + 135.66
 merit = 1/(cost*(gain_dev + freq_dev + 1e-6))
 
 hf = figure();
