@@ -57,14 +57,12 @@ Vcheck check in 0
 X1 0 inv_in vcc vee out uA741
 
 *Z1
-R1 in inv_in1 2980.39215686
-C1 inv_in1 inv_in 180.327868852n
+R1 in inv_in1 3k
+C1 inv_in1 inv_in 1220n
 *Z2
-R2 inv_in out 120k
+R2 inv_in out1 100k
+C2 out 0 1220n
 vout out out1 0
-
-* load
-RL out1 0 8
 
 .op
 .end
@@ -106,8 +104,8 @@ let freq_dev = abs(central_freq - 1000)
 let gain_dev = abs(gain - 40)
 print freq_dev
 print gain_dev
-let cost = 13322.9920387+324.228
-let merit = 1/(cost*(gain_dev + freq_dev+0.000001))
+let cost = 13322.7920387+335.228
+let merit = 1/(cost*(gain_dev + freq_dev + 0.000001))
 print merit
 
 hardcopy vout_mag.ps vdb(out) cutoff
