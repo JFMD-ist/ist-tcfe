@@ -51,18 +51,25 @@
 
 Vcc vcc 0 5.0
 Vee vee 0 -5.0
-Vin check 0 0 ac 1.0 sin(0 10m 1k)
+Vin check 0 0 ac 10m sin(0 10m 1k)
 Vcheck check in 0 
 
 X1 0 inv_in vcc vee out uA741
 
+*High-Pass Stage
+C1 in in1 2440n
+R1 in1 0 30k
+
 *Z1
-R1 inv_in 0 300
-C1 in inv_in 220n
+R2 in1 inv_in 1000
+
 *Z2
-R2 inv_in out1 50k
+R3 inv_in out1 100k
+
+*Low-Pass Stage
+R4 out1 outc 2000
 C2 out 0 220n
-vout out out1 0
+Vout outc out 0
 
 .op
 .end
@@ -102,9 +109,13 @@ print central_freq
 print gain
 let freq_dev = abs(central_freq - 1000)
 let gain_dev = abs(gain - 100)
+print v(in)[0]
+print v(in)[20]
+print v(out)[0]
+print v(out)[20]
 print freq_dev
 print gain_dev
-let cost = 13323.2920387 + 335.44
+let cost = 13323.2920387 + 135.66
 let merit = 1/(cost*(gain_dev + freq_dev + 0.000001))
 print merit
 
@@ -117,7 +128,7 @@ print v(in)[20]/i(Vcheck)[20]/1000
 
 
 *output impedance in kohm
-print v(out)[20]/i(vout)[20]/1000
+print v(out)[20]/i(Vout)[20]/1000
 
 .endc 
 
