@@ -1,33 +1,29 @@
-\hspace{12pt} In this laboratorial session we were tasked to create a Class A Amplifier circuit (whose basic layout is described in Figure \ref{fig:amp}). We can divide the entire circuit into 2 different stages:
-\vspace{-5pt}
-\begin{enumerate}
-	\item{\textbf{Gain Stage} - which takes the input signal and uses it alongside an NPN transistor and a supply voltage source of 12V to amplify the input}
-	\vspace{-5pt}
-	\item{\textbf{Output Stage} - which takes the amplified signal of the previous stage and has a lower output impedance such that it can be connected to the load without any complications}
-\end{enumerate}
+\hspace{12pt} In this \textbf{\textit{final}} laboratory session we were asked to analyze a circuit composed of an OP-AMP and other components, with the objective of creating a bandpass filter with a central frequency of 1kHz	 and a gain of 40dB. After many iterations, we reached the final architecture of the circuit which can be seen in its general form in Figure \ref{fig:bandpass_amp} and in its full detailed form in Figure \ref{fig:circuit}.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.5\textwidth, trim={0 4cm 0 4cm}, clip]{Bandpass_amplifier.pdf}
-	\caption{Class A amplifier circuit layout}
-	\label{fig:amp}
-\end{figure}
 \vspace{-10pt}
 \begin{figure}[h]
  	\centering
-	\includegraphics[width=.5\textwidth, trim={0 0 0 1cm}, clip]{Circuit_diagram.pdf}
-	\caption{Class A amplifier circuit arquitecture specifications}
+	\includegraphics[width=.5\textwidth, trim={0 2cm 0 5cm}, clip]{Bandpass_amplifier.pdf}
+	\vspace{-20pt}
+	\caption{Bandpass amplifier circuit general architecture}
+	\label{fig:bandpass_amp}
+\end{figure}
+
+\vspace{-25pt}
+\begin{figure}[h]
+ 	\centering
+	\includegraphics[width=.5\textwidth, trim={0 2cm 0 3cm}, clip]{Circuit_diagram.pdf}
+	\vspace{-30pt}
+	\caption{Bandpass amplifier circuit architecture}
 	\label{fig:circuit}
 \end{figure}
- 
-In the theoretical analysis (section \ref{sec:theory}), we first performed an Operating Point analysis and calculated the different currents and voltages involved in two stages of the amplifier. We then computed the gain by using the mesh method and the input and output impedances of the two stages. Lastly we used the mesh method alongside the incremental model of the NPN and PNP transistors to compute the total gain as a function of frequency.
 
-In the simulation section, we started with the ngspice script provided by the professor and tweaked the values of several components in order to achieve 4 goals we estabilished. The next step was to perform a frequency sweep and plot the gain output graph, which we then used to calculated the cutoff frequencies of the circuit and thusly, the bandwidth, together with the total cost of the components we computed the \textbf{merit figure} as 
+In the theoretical analysis we used a model (Figure \ref{fig:OP-AMP}) to aproximate the OP-AMP component and used it, alongside the Octave software, to calculate the currents in the different meshes of the circuit, obtaining this way the input and output impedances of the circuit, and also the theoretical frequency response of the filter.
+\vspace{10pt}
 
-\begin{equation}
-	Merit = \frac{bandwidth \cdot gain}{(lower cutoff freq) \cdot (total cost)}
-\end{equation} 
+After that, in the simulation section of the report, we simulated the circuit using the Ngspice software and performed an extensive performance analysis in order to achieve several goals which were set, this lead to the creation of several Octave scripts which aided us in finding the best possible values for the resistors and capacitors whilst staying within the limits of the components set by the professor. The first of these ("random\_gen.m") creates a random resistor and capacitor using a maximum number of each component set by the user, by creating a number of branches and assigning to each of them a random number of resistors of each type, this results in an equivalent resistor which can range from very simple and obvious to contruct to very complex stuctures which would be hard to come up with. The other two scripts - "resistor\_calc.m" and "capacitor\_calc.m" - take in a specific resistance (or capacitance) value and a maximum number of each component allowed and by running the same logic as the previous script 20000 times, checks the best possible combination to aproximate the requested value, after finding this best value it then output its resistance (or capacitance) as well as the structure generated in the form of a matrix whose columns represent the number of components of which type present in the branch and whose lines represent the number of branches of the structure.
+\vspace{10pt}
 
-Finally, in section \ref{sec:conc}, we compared the theoretical and simulation results from the different sections.
+Finally, in the conclusion we briefly recall the objectives of the lab session and conclude about the results obtained, and how they reflect the purpose of the laboratory session.
 
 \pagebreak

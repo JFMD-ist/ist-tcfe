@@ -41,6 +41,6 @@ ngspice.log: ../sim/t5.net
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.ps
-	@rm -rf *_tab.tex octave-workspace *.eps *output.tex *_theory.tex *theory_sec2.tex *theory_results.tex
+	@rm -rf *_tab.tex octave-workspace *.eps *output.tex *freq_response.tex *theory_sec2.tex *central_freq.tex *results.tex
 
 .PHONY: all clean ngspice
