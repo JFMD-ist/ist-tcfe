@@ -15,15 +15,13 @@ $(FILE).pdf: $(wildcard *.tex) $(LODFIGS) octave ngspice pspdf
 	pdflatex  $(FILE).tex
 	
 octave:
-	octave ../mat/t4.m > octave.log
+	octave ../mat/t5.m > octave.log
 	
-pspdf: ngspice.log
-	ps2pdf vo1.ps vo1.pdf
-	ps2pdf vo1f.ps vo1f.pdf
-	ps2pdf vo2f_m.ps vo2f_m.pdf
-	ps2pdf vo2f_ph.ps vo2f_ph.pdf
+pspdf: ngspice
 	ps2pdf vout.ps vout.pdf
-	ps2pdf tf.ps tf.pdf
+	ps2pdf vout_mag.ps vout_mag.pdf
+	ps2pdf vout_ph.ps vout_ph.pdf
+	ps2pdf gain.ps gain.pdf
 
 ngspice: ngspice.log
 	$(eval NGSFIGS=$(shell grep _FIG $< | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
@@ -32,7 +30,7 @@ ngspice: ngspice.log
 	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
 	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
 
-ngspice.log: ../sim/t4.net
+ngspice.log: ../sim/t5.net
 	ngspice -b $< -o $@
 
 

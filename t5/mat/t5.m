@@ -9,7 +9,7 @@ syms w
 Vin = 10e-3;
 Zin = 5e6;
 Zout = 50;
-Av = 1e6;
+Av = 1e5;
 
 R1 = 30e3;
 R2 = 1e3;
@@ -38,8 +38,8 @@ Vout = Zc2*I(4);
 
 w = 2*pi*1000;
 Vout_mag = abs(Vout);
-input_imp = Vin/eval(I(1))
-output_imp = eval(Vout)/eval(I(4))
+input_imp = Vin/(1000*eval(I(1)))
+output_imp = eval(Vout)/(eval(I(4))*1000)
 gain = eval(Vout_mag)/Vin
 
 %-------------------------------------------------------------------------

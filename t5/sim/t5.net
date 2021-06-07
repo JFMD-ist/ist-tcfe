@@ -56,15 +56,20 @@ Vcheck check in 0
 
 X1 0 inv_in vcc vee out uA741
 
-*Z1
-R1 in inv_in1 2980.39215686
-C1 inv_in1 inv_in 180.327868852n
-*Z2
-R2 inv_in out 120k
-vout out out1 0
+*High-Pass Stage
+C1 in in1 2440n
+R1 in1 0 30k
 
-* load
-RL out1 0 8
+*Z1
+R2 in1 inv_in 1000
+
+*Z2
+R3 inv_in out1 100k
+
+*Low-Pass Stage
+R4 out1 outc 2000
+C2 out 0 220n
+Vout outc out 0
 
 .op
 .end
@@ -85,9 +90,7 @@ print all
 * time analysis
 tran 1e-5 1e-2
 *plot v(out)
-hardcopy vo1.ps vdb(out)
-plot v(out)
-hardcopy vo1.ps v(out)
+hardcopy vout.ps v(out)
 
 
 * frequency analysis
@@ -95,6 +98,7 @@ ac dec 10 10 100MEG
 *plot vdb(out)
 *plot vp(out)
 
+echo "out_TAB"
 let cutoff = vecmax(vdb(out)) - 3
 meas ac f1 WHEN vdb(out)=cutoff RISE=1
 meas ac f2 WHEN vdb(out)=cutoff CROSS=LAST
@@ -103,23 +107,24 @@ let gain = abs(v(out)[20]/v(in)[20])
 print central_freq
 print gain
 let freq_dev = abs(central_freq - 1000)
-let gain_dev = abs(gain - 40)
+let gain_dev = abs(gain - 100)
 print freq_dev
 print gain_dev
-let cost = 13322.9920387+324.228
-let merit = 1/(cost*(gain_dev + freq_dev+0.000001))
+let cost = 13323.2920387 + 135.66
+let merit = 1/(cost*(gain_dev + freq_dev + 0.000001))
 print merit
+*input impedance in kohm
+let input_imp = v(in)[20]/i(Vcheck)[20]/1000
+print input_imp
+
+*output impedance in kohm
+let output_imp = v(out)[20]/i(Vout)[20]/1000
+print output_imp
+echo "out_END"
 
 hardcopy vout_mag.ps vdb(out) cutoff
 hardcopy vout_ph.ps vp(out)
 hardcopy gain.ps abs(v(out)/v(in)) cutoff
-
-*input impedance in kohm
-print v(in)[20]/i(Vcheck)[20]/1000
-
-
-*output impedance in kohm
-print v(out)[20]/i(vout)[20]/1000
 
 .endc 
 
